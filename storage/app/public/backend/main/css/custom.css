@@ -1,0 +1,165 @@
+.sidebar-nav ul li.nav-devider {
+    margin: 0px 0;
+}
+
+.sidebar-nav > ul > li > a.active {
+    background: #F26522;
+    color: #fff !important;
+}
+
+body {
+    /*font-weight: normal;*/
+}
+
+body, .sidebar-nav ul li a {
+    color: #fff ;
+
+}
+
+#grid_table th:first-child,
+#grid_table td:first-child {
+    border-left: 1px solid #C1DAD7;
+    text-align: center;
+    white-space: nowrap;
+}
+
+#grid_table th {
+    font: bold 11px "Tahoma", Verdana, Arial, Helvetica, sans-serif;
+    color: #4f6b72;
+    border-right: 1px solid #C1DAD7;
+    border-bottom: 1px solid #C1DAD7;
+    border-top: 1px solid #C1DAD7;
+    text-align: center;
+    padding: 2px 2px 2px 5px;
+    background: #CAE8EA;
+    white-space: nowrap;
+}
+
+#grid_table td {
+    font: 11px "Tahoma", Verdana, Trebuchet MS, Helvetica;
+    border-right: 1px solid #C1DAD7;
+    border-bottom: 1px solid #C1DAD7;
+    background: #fff;
+    padding: 2px 0 2px 5px;
+    color: #4f6b72;
+    word-break: break-all;
+    white-space: nowrap;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.page-wrapper {
+    /*padding-top: 30px;*/
+}
+
+/*.page-titles {*/
+/*    max-width: 1600px;*/
+/*}*/
+
+/*.topbar .top-navbar,*/
+/*.scroll-sidebar {*/
+/*    max-width: 1590px;*/
+/*}*/
+
+.text-center .pagination {
+    justify-content: center;
+}
+
+.select2-sm .select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 31px !important;
+}
+
+.select2-sm .select2-container--default .select2-selection--single {
+    height: 31px !important;
+}
+
+.note-list p {
+    font-size: 12px;
+    margin-bottom: 0.3rem;
+}
+
+@media (min-width: 768px) {
+    .sidebar-nav > ul > li:last-child ul {
+        right: initial;
+    }
+}
+
+.header-accordion {
+    padding: 10px;
+    border-bottom: solid 1px #ccc;
+    margin-bottom: 10px;
+    background: #f3f3f3;
+}
+
+.header-accordion a {
+    color: #000;
+}
+
+.form-group-sm {
+    margin-bottom: 10px;
+}
+
+.form-group-sm label {
+    font-size: 13px;
+}
+
+.input-update-inventory {
+    max-width: 90px;
+}
+
+.inventory_update .input-group-btn,
+.inventory_update .btn {
+    margin-right: 0 !important;
+}
+
+.inventory_update .btn-default.active {
+    color: #222;
+    background-color: #cccccc;
+    border-color: #adadad;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.inventory-quantity {
+    display: inline-block;
+    padding: 5px 7px 1px 7px;
+}
+
+.inventory-quantity--modified {
+    background: #fff7b2;
+    border-radius: 3px;
+    color: #6f4f0c;
+}
+
+.flat {
+    border-radius: 0 !important;
+}
+
+.btn.disabled, .btn[disabled], fieldset[disabled] .btn {
+    cursor: not-allowed;
+    filter: grayscale(80%);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    opacity: 1;
+}
+
+.hide {
+    display: none !important;
+}
+
+.checkbox-out {
+    padding-top: 3px;
+    margin-right: 20px;
+    display: inline-block;
+}
+
+.create_variation_form,
+.edit_variation_form{
+    font-size: 13px;
+}

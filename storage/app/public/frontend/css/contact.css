@@ -1,0 +1,360 @@
+.quick-alo-phone .btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+    .quick-alo-ph-number {
+        display: none
+    }
+
+    .quick-alo-phone {
+        background-color: transparent;
+        cursor: pointer;
+        height: 120px;
+        position: fixed;
+        transition: visibility .5s ease 0s;
+        width: 120px;
+        z-index: 200000 !important;
+        top: auto !important;
+        bottom: 40px
+    }
+
+    .quick-alo-ph-circle {
+        display: none;
+        animation: 1.2s ease-in-out 0s normal none infinite running quick-alo-circle-anim;
+        background-color: transparent;
+        border: 2px solid rgba(30, 30, 30, .4);
+        border-radius: 100%;
+        height: 100px;
+        left: 0;
+        opacity: .1;
+        position: absolute;
+        top: 60px;
+        transform-origin: 50% 50% 0;
+        transition: all .5s ease 0s;
+        width: 100px
+    }
+
+    .quick-alo-ph-circle-fill {
+        animation: 2.3s ease-in-out 0s normal none infinite running quick-alo-circle-fill-anim;
+        border: 2px solid transparent;
+        border-radius: 100%;
+        height: 70px;
+        left: -15px;
+        position: absolute;
+        top: 75px;
+        transform-origin: 50% 50% 0;
+        transition: all .5s ease 0s;
+        width: 70px
+    }
+
+    .quick-alo-ph-img-circle {
+        border: 2px solid transparent;
+        border-radius: 100%;
+        height: 50px;
+        left: 25px;
+        opacity: .7;
+        position: absolute;
+        top: 85px;
+        transform-origin: 50% 50% 0;
+        width: 50px
+    }
+
+    .quick-alo-phone.quick-alo-hover, .quick-alo-phone:hover {
+        opacity: 1
+    }
+
+    .quick-alo-phone.quick-alo-active .quick-alo-ph-circle {
+        animation: 1.1s ease-in-out 0s normal none infinite running quick-alo-circle-anim !important
+    }
+
+    .quick-alo-phone.quick-alo-static .quick-alo-ph-circle {
+        animation: 2.2s ease-in-out 0s normal none infinite running quick-alo-circle-anim !important
+    }
+
+    .quick-alo-phone.quick-alo-hover .quick-alo-ph-circle, .quick-alo-phone:hover .quick-alo-ph-circle {
+        border-color: #00aff2;
+        opacity: .5
+    }
+
+    .quick-alo-phone.quick-alo-green.quick-alo-hover .quick-alo-ph-circle, .quick-alo-phone.quick-alo-green:hover .quick-alo-ph-circle {
+        border-color: red;
+        opacity: 1
+    }
+
+    .quick-alo-phone.quick-alo-green .quick-alo-ph-circle {
+        border-color: #3a8c14;
+        opacity: 1
+    }
+
+    .quick-alo-phone.quick-alo-hover .quick-alo-ph-circle-fill, .quick-alo-phone:hover .quick-alo-ph-circle-fill {
+        background-color: rgba(0, 175, 242, .9)
+    }
+
+    .quick-alo-phone.quick-alo-green.quick-alo-hover .quick-alo-ph-circle-fill, .quick-alo-phone.quick-alo-green:hover .quick-alo-ph-circle-fill {
+        background-color: red
+    }
+
+    .quick-alo-phone.quick-alo-green .quick-alo-ph-circle-fill {
+        background-color: #3a8c14
+    }
+
+    .quick-alo-phone.quick-alo-hover .quick-alo-ph-img-circle, .quick-alo-phone:hover .quick-alo-ph-img-circle {
+        background-color: #00aff2
+    }
+
+    .quick-alo-phone.quick-alo-green.quick-alo-hover .quick-alo-ph-img-circle, .quick-alo-phone.quick-alo-green:hover .quick-alo-ph-img-circle {
+        background-color: red
+    }
+
+    .quick-alo-phone.quick-alo-green .quick-alo-ph-img-circle {
+        background-color: #b80012;
+        opacity: .9
+    }
+
+    .quick-alo-ph-img-circle i {
+        animation: 1s ease-in-out 0s normal none infinite running quick-alo-circle-img-anim;
+        font-size: 30px;
+        line-height: 50px;
+        padding-left: 10px;
+        color: #fff
+    }
+}
+
+@media (min-width: 768px) {
+    .quick-alo-phone {
+        background-color: transparent;
+        cursor: pointer;
+        height: 120px;
+        position: fixed;
+        transition: visibility .5s ease 0s;
+        width: 30px;
+        z-index: 200000 !important;
+        bottom: 56px;
+        right: 60px;
+    }
+
+    .quick-alo-ph-circle {
+        animation: 1.2s ease-in-out 0s normal none infinite running quick-alo-circle-anim;
+        background-color: transparent;
+        border: 2px solid rgba(30, 30, 30, .4);
+        border-radius: 100%;
+        height: 100px;
+        right: 120px;
+        top: 60px;
+        opacity: .1;
+        position: absolute;
+        transform-origin: 50% 50% 0;
+        transition: all .5s ease 0s;
+        width: 100px
+    }
+
+    .quick-alo-ph-circle-fill {
+        animation: 2.3s ease-in-out 0s normal none infinite running quick-alo-circle-fill-anim;
+        border: 2px solid transparent;
+        border-radius: 100%;
+        height: 80px;
+        right: 130px;
+        position: absolute;
+        top: 70px;
+        transform-origin: 50% 50% 0;
+        transition: all .5s ease 0s;
+        width: 80px
+    }
+
+    .quick-alo-ph-img-circle {
+        animation: 1s ease-in-out 0s normal none infinite running quick-alo-circle-img-anim;
+        border: 2px solid transparent;
+        border-radius: 100%;
+        height: 50px;
+        left: 10px;
+        opacity: 1;
+        position: absolute;
+        top: 85px;
+        transform-origin: 50% 50% 0;
+        width: 50px;
+        z-index: 1
+    }
+
+    .quick-alo-phone.quick-alo-green:hover .quick-alo-ph-number {
+        background-color: red
+    }
+
+    .quick-alo-ph-number {
+        position: absolute;
+        top: 91px;
+        right: 25px;
+        font-size: 20px;
+        background: #b80012;
+        padding: 5px 10px;
+        /* border-top-right-radius: 10px; */
+        /* border-bottom-right-radius: 10px; */
+        color: #fff;
+    }
+
+    .quick-alo-phone.quick-alo-hover, .quick-alo-phone:hover {
+        opacity: 1
+    }
+
+    .quick-alo-phone.quick-alo-active .quick-alo-ph-circle {
+        animation: 1.1s ease-in-out 0s normal none infinite running quick-alo-circle-anim !important
+    }
+
+    .quick-alo-phone.quick-alo-static .quick-alo-ph-circle {
+        animation: 2.2s ease-in-out 0s normal none infinite running quick-alo-circle-anim !important
+    }
+
+    .quick-alo-phone.quick-alo-hover .quick-alo-ph-circle, .quick-alo-phone:hover .quick-alo-ph-circle {
+        border-color: #00aff2;
+        opacity: .5
+    }
+
+    .quick-alo-phone.quick-alo-green.quick-alo-hover .quick-alo-ph-circle, .quick-alo-phone.quick-alo-green:hover .quick-alo-ph-circle {
+        border-color: red;
+        opacity: 1
+    }
+
+    .quick-alo-phone.quick-alo-green .quick-alo-ph-circle {
+        border-color: #b80012
+
+;
+        opacity: 1
+    }
+
+    .quick-alo-phone.quick-alo-hover .quick-alo-ph-circle-fill, .quick-alo-phone:hover .quick-alo-ph-circle-fill {
+        background-color: rgba(0, 175, 242, .9)
+    }
+
+    .quick-alo-phone.quick-alo-green.quick-alo-hover .quick-alo-ph-circle-fill, .quick-alo-phone.quick-alo-green:hover .quick-alo-ph-circle-fill {
+        background-color: red
+    }
+
+    .quick-alo-phone.quick-alo-green .quick-alo-ph-circle-fill {
+        background-color: #b80012
+
+;
+    }
+
+    .quick-alo-phone.quick-alo-hover .quick-alo-ph-img-circle, .quick-alo-phone:hover .quick-alo-ph-img-circle {
+        background-color: #00aff2
+    }
+
+    .quick-alo-phone.quick-alo-green.quick-alo-hover .quick-alo-ph-img-circle, .quick-alo-phone.quick-alo-green:hover .quick-alo-ph-img-circle {
+        background-color: red
+    }
+
+    .quick-alo-phone.quick-alo-green .quick-alo-ph-img-circle {
+        background-color: #b80012
+
+;
+    }
+}
+
+@keyframes quick-alo-circle-anim {
+    0% {
+        opacity: .1;
+        transform: rotate(0deg) scale(.5) skew(1deg)
+    }
+    30% {
+        opacity: .5;
+        transform: rotate(0deg) scale(.7) skew(1deg)
+    }
+    100% {
+        opacity: .6;
+        transform: rotate(0deg) scale(1) skew(1deg)
+    }
+}
+
+@keyframes quick-alo-circle-img-anim {
+    0% {
+        transform: rotate(0deg) scale(1) skew(1deg)
+    }
+    10% {
+        transform: rotate(-25deg) scale(1) skew(1deg)
+    }
+    20% {
+        transform: rotate(25deg) scale(1) skew(1deg)
+    }
+    30% {
+        transform: rotate(-25deg) scale(1) skew(1deg)
+    }
+    40% {
+        transform: rotate(25deg) scale(1) skew(1deg)
+    }
+    50% {
+        transform: rotate(0deg) scale(1) skew(1deg)
+    }
+    100% {
+        transform: rotate(0deg) scale(1) skew(1deg)
+    }
+}
+
+@keyframes quick-alo-circle-fill-anim {
+    0% {
+        opacity: .2;
+        transform: rotate(0deg) scale(.7) skew(1deg)
+    }
+    50% {
+        opacity: .2;
+        transform: rotate(0deg) scale(1) skew(1deg)
+    }
+    100% {
+        opacity: .2;
+        transform: rotate(0deg) scale(.7) skew(1deg)
+    }
+}
+
+.quick-alo-ph-img-circle i {
+    animation: 1s ease-in-out 0s normal none infinite running quick-alo-circle-img-anim;
+    font-size: 30px;
+    line-height: 50px;
+    padding-left: 0;
+    color: #fff
+}
+
+@keyframes quick-alo-ring-ring {
+    0% {
+        transform: rotate(0deg) scale(1) skew(1deg)
+    }
+    10% {
+        transform: rotate(-25deg) scale(1) skew(1deg)
+    }
+    20% {
+        transform: rotate(25deg) scale(1) skew(1deg)
+    }
+    30% {
+        transform: rotate(-25deg) scale(1) skew(1deg)
+    }
+    40% {
+        transform: rotate(25deg) scale(1) skew(1deg)
+    }
+    50% {
+        transform: rotate(0deg) scale(1) skew(1deg)
+    }
+    100% {
+        transform: rotate(0deg) scale(1) skew(1deg)
+    }
+
+}
+.zalo-chat-widget{
+    right: 23px !important;
+    bottom: 88px !important;
+}
