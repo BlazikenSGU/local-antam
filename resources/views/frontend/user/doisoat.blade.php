@@ -7,14 +7,14 @@
     <style>
         /* CSS cho bảng đối soát chính */
         /* .table-bordered th,
-                            .table-bordered td {
-                                width: 200px !important;
-                                min-width: 200px !important;
-                                max-width: 200px !important;
-                                white-space: nowrap;
-                                overflow: hidden;
-                                text-overflow: ellipsis;
-                            } */
+                                .table-bordered td {
+                                    width: 200px !important;
+                                    min-width: 200px !important;
+                                    max-width: 200px !important;
+                                    white-space: nowrap;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                } */
 
         .table-bordered .width-250 {
             width: 250px !important;
@@ -24,14 +24,14 @@
 
         /* CSS cho bảng đối soát phụ */
         /* #table_id1 th,
-                            #table_id1 td {
-                                width: 200px !important;
-                                min-width: 200px !important;
-                                max-width: 200px !important;
-                                white-space: nowrap;
-                                overflow: hidden;
-                                text-overflow: ellipsis;
-                            } */
+                                #table_id1 td {
+                                    width: 200px !important;
+                                    min-width: 200px !important;
+                                    max-width: 200px !important;
+                                    white-space: nowrap;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                } */
 
         /* Đảm bảo bảng có thể cuộn ngang */
         .table-responsive {
@@ -41,10 +41,10 @@
 
         /* Đảm bảo bảng không bị co lại */
         /* .table-bordered,
-                            #table_id1 {
-                                width: auto !important;
-                                table-layout: fixed;
-                            } */
+                                #table_id1 {
+                                    width: auto !important;
+                                    table-layout: fixed;
+                                } */
 
         /* Đảm bảo wrapper của DataTable không bị vỡ */
         #table_id_wrapper {
@@ -277,7 +277,7 @@
                                                     foreach ($doisoat as $key => $value) {
                                                         $ArrraysOderCode[] = $value['OrderCode'];
                                                     }
-
+                                                    
                                                     //$ArrraysOderCode = $doisoat->puck('OrderCode');
                                                     //var_dump($ArrraysOderCode);
                                                     $sumPayment_fee = \App\Models\Orders::whereIn('order_code', $ArrraysOderCode)->sum('payment_fee');
@@ -316,9 +316,10 @@
                     @foreach ($data1 as $a1)
                         <div class="card card-outline-info mb-2">
 
-                            <div class="card-body" >
-                                <div class="d-flex flex-column" >
-                                    <a href="{{ route('user.doisoat.view', $a1->id) }}"><span class="t-o" style="font-size: 14px"> Mã phiên:
+                            <div class="card-body">
+                                <div class="d-flex flex-column">
+                                    <a href="{{ route('user.doisoat.view', $a1->id) }}"><span class="t-o"
+                                            style="font-size: 14px"> Mã phiên:
                                             {{ $a1->maphienchuyentien }}</span></a>
                                     <span class="t-b">Thời gian chuyển: {{ $a1->thoigianchuyentien }}</span>
                                     <span class="t-b">Tổng tiền cod:
@@ -330,12 +331,12 @@
                                         }
                                         $sumPayment_fee = \App\Models\Orders::whereIn('order_code', $ArrraysOderCode)->sum('payment_fee');
                                         ?>
-                                        {{ number_format($a1->tongtienCOD, 0, ',', '.') }}   đ
+                                        {{ number_format($a1->tongtienCOD, 0, ',', '.') }} đ
                                     </span>
                                     <span class="t-b">GTB: {{ number_format($a1->GTBThutien, 0, ',', '.') }}
                                         đ</span>
                                     <span class="t-b">Thực nhận: {{ number_format($a1->thucnhan, 0, ',', '.') }}
-                                          đ</span>
+                                        đ</span>
                                     <span class="t-b">Số đơn tương ứng: {{ $a1->soHDtuongung }}</span>
                                 </div>
                             </div>
@@ -458,7 +459,7 @@
             console.log(data)
             $.ajax({
                 type: "GET",
-                url: '{{ route('backend.doi_soat.ajaxData') }}',
+                url: '',
                 dataType: 'json',
                 data: data,
                 success: function(response) {

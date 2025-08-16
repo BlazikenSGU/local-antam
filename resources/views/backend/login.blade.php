@@ -59,7 +59,6 @@
         }
 
         .login-register {
-            background-image: url(https://antamecommerce.vn/storage/backend/assets/images/background/login-register.jpg);
             padding: 0;
             display: flex;
             flex-direction: column;
@@ -83,7 +82,8 @@
         }
     </style>
     <section id="wrapper">
-        <div class="login-register">
+        <div class="login-register"
+            style="background-image: url('{{ asset('storage/backend/assets/images/background/login-register.jpg') }}');">
 
             <div class="login-box card">
 

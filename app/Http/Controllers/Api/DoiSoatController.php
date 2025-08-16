@@ -161,8 +161,6 @@ class DoiSoatController extends BaseBackendController
             }
         }
 
-
-
         return redirect()->route('backend.doi_soat.index')->with('success', 'Import dữ liệu thành công.');
     }
 

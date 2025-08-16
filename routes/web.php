@@ -1,332 +1,89 @@
 <?php
 
+
 use App\Models\ProductType;
 use App\Utils\Category;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backend\DoiSoatController;
+use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\NotificationController;
+use App\Http\Controllers\Backend\StaffController;
+use App\Http\Controllers\Backend\Branch\BranchController;
+use App\Http\Controllers\Backend\OrdersController;
+use App\Http\Controllers\Backend\SubscribersController;
+use App\Http\Controllers\Backend\ReportController;
+use App\Http\Controllers\Backend\AuthController;
 
 
-Route::group(['prefix' => 'admin'], function () {
-
-    Route::any('/login', 'Backend\AuthController@login')->name('backend.login');
-    Route::any('/logout', 'Backend\AuthController@logout')->name('backend.logout');
-    Route::any('/register', 'Backend\AuthController@register')->name('backend.register');
-    Route::get('/check-otp-expire', 'Backend\AuthController@checkOTPTimeout');
-    Route::any('/forgotPassword', 'Backend\AuthController@forgotPassword')->name('backend.forgotPassword');
-    Route::any('/changePassword', 'Backend\AuthController@changePassword')->name('backend.changePassword');
-    Route::get('/verify-otp', 'Backend\AuthController@verifyOTP')->name('backend.verifyOTP');
-    Route::post('/verify-otp', 'Backend\AuthController@verifyOTP');
-
-    Route::group(['middleware' => 'backend'], function () {
-
-        Route::get('/', 'Backend\DashboardController@index')->name('backend.dashboard');
-
-        Route::get('/comming', function () {
-            return view('backend.mobie.comingsoon');
-        });
+//authentication routes
+Route::any('/login', [AuthController::class, 'login'])->name('backend.login');
+Route::any('/logout', [AuthController::class, 'logout'])->name('backend.logout');
+Route::any('/register', [AuthController::class, 'register'])->name('backend.register');
+Route::get('/check-otp-expire', [AuthController::class, 'checkOTPTimeout'])->name('backend.checkOTPTimeout');
+Route::any('/forgotPassword', [AuthController::class, 'forgotPassword'])->name('backend.forgotPassword');
+Route::any('/changePassword', [AuthController::class, 'changePassword'])->name('backend.changePassword');
+Route::get('/verify-otp', [AuthController::class, 'verifyOTP'])->name('backend.verifyOTP');
+Route::post('/verify-otp', [AuthController::class, 'verifyOTP'])->name('backend.verifyOTP.post');
 
 
+Route::prefix('admin')->middleware('backend')->group(function () {
+    // Dashboard admin
+    Route::get('/', [DashboardController::class, 'index'])->name('backend.dashboard');
 
-        Route::any('/notification', 'Backend\NotificationController@index')->name('backend.notification.index');
-        Route::any('/notification/add', 'Backend\NotificationController@add')->name('backend.notification.add')->middleware('permission:notification.add');
-        Route::any('/notification/delete/{id}', 'Backend\NotificationController@delete')->name('backend.notification.delete');
-        Route::any('/notification/push/{id}', 'Backend\NotificationController@pushAgent')->name('backend.notification.push');
+    // xem check log 
+    Route::get('/view-log', [NotificationController::class, 'index'])->name('backend.notification.index');
 
-        Route::any('/profile', 'Backend\UsersController@profile')->name('backend.users.profile');
+    // Quản lý đối soát
+    Route::group(['prefix' => 'doi_soat'], function () {
+        Route::get('/', [DoiSoatController::class, 'index'])->name('backend.doi_soat.index');
+        Route::get('/edit/{id}', [DoiSoatController::class, 'edit'])->name('backend.doi_soat.edit');
+        Route::post('/edit/{id}', [DoiSoatController::class, 'update'])->name('backend.doi_soat.update');
+        Route::get('/searchs', [DoiSoatController::class, 'search'])->name('backend.doi_soat.search');
+        Route::get('/export', [DoiSoatController::class, 'export'])->name('backend.doi_soat.export');
+        Route::get('/import', [DoiSoatController::class, 'import'])->name('backend.doi_soat.import');
+        Route::get('/file-import', [DoiSoatController::class, 'showFormImport'])->name('backend.doi_soat.showFormImport');
+        //chạy đối soát
+        Route::any('/run', [DoiSoatController::class, 'run'])->name('backend.doi_soat.run');
+    });
 
-        Route::any('/users', 'Backend\UsersController@index')->name('backend.users.index');
-        Route::any('/users/add', 'Backend\UsersController@add')->name('backend.users.add');
-        Route::any('/users/edit/{id}', 'Backend\UsersController@edit')->name('backend.users.edit');
-        Route::any('/users/delete/{id}', 'Backend\UsersController@delete')->name('backend.users.delete');
+    // quản lý tài khoản khách hàng
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('/', [StaffController::class, 'index'])->name('backend.staff.index');
+        Route::any('/edit/{id}', [StaffController::class, 'edit'])->name('backend.staff.edit');
+        Route::any('/delete/{id}', [StaffController::class, 'delete'])->name('backend.staff.delete');
+    });
 
-        Route::group(['prefix' => 'salary'], function () {
-            Route::any('/', 'Backend\SalaryController@index')->name('backend.salary.index');
-            Route::any('/export', 'Backend\SalaryController@export')->name('backend.salary.export');
-            Route::any('/delete/{id}', 'Backend\SalaryController@delete')->name('backend.salary.delete');
-        });
+    //quản lý shopID
+    Route::group(['prefix' => 'shopid'], function () {
+        Route::get('/', [BranchController::class, 'index'])->name('backend.brands.index');
+        Route::get('/create', [BranchController::class, 'create'])->name('backend.brands.create');
+        Route::post('/store', [BranchController::class, 'store'])->name('backend.brands.store');
+        Route::get('/edit/{id}', [BranchController::class, 'edit'])->name('backend.brands.edit');
+        Route::post('/update/{id}', [BranchController::class, 'update'])->name('backend.brands.update');
+        Route::post('/delete', [BranchController::class, 'destroy'])->name('backend.brands.delete');
+    });
 
-        Route::group(['prefix' => 'doi_soat'], function () {
-            Route::any('/', 'Backend\DoiSoatController@index')->name('backend.doi_soat.index');
-            Route::get('/edit/{id}', 'Backend\DoiSoatController@edit')->name('backend.doi_soat.edit');
-            Route::post('/edit/{id}', 'Backend\DoiSoatController@update')->name('backend.doi_soat.update');
-            Route::any('/export', 'Backend\DoiSoatController@export')->name('backend.doi_soat.export');
-            Route::any('/import', 'Backend\DoiSoatController@import')->name('backend.doi_soat.import');
-            Route::any('/detail/{user_id}', 'Backend\DoiSoatController@detail')->name('backend.doi_soat.detail');
-            Route::any('/showFormImport', 'Backend\DoiSoatController@showFormImport')->name('backend.doi_soat.showFormImport');
-            Route::any('/run', 'Backend\DoiSoatController@run')->name('backend.doi_soat.run');
-            Route::any('/ajaxData', 'Backend\DoiSoatController@ajaxData')->name('backend.doi_soat.ajaxData');
+    // gán shopId trong edit user
+    Route::group(['prefix' => 'assignshopid'], function () {
+        Route::get('/', [BranchController::class, 'assignshopid'])->name('backend.brands.assignshopid');
+        Route::get('/edit/{id}', [BranchController::class, 'editassignshopid'])->name('backend.brands.editassignshopid');
+        Route::post('/update/{id}', [BranchController::class, 'updateassignshopid'])->name('backend.brands.updateassignshopid');
+    });
 
-            Route::get('/search', 'Backend\DoiSoatController@search')->name('backend.doi_soat.search');
-        });
+    // quản lý đơn hàng
+    Route::group(['prefix' => 'orders'], function () {
+        Route::get('/', [OrdersController::class, 'index'])->name('backend.orders.index');
+        Route::get('/search', [OrdersController::class, 'search'])->name('backend.orders.search');
+        Route::any('/excel', [OrdersController::class, 'ExportExcel'])->name('backend.orders.excel');
+        Route::any('/export', [OrdersController::class, 'export'])->name('backend.orders.export');
+    });
 
-        Route::group(['prefix' => 'staff'], function () {
-            Route::any('/', 'Backend\StaffController@index')->name('backend.staff.index')->middleware('permission:staff.index');
-            Route::any('/add', 'Backend\StaffController@add')->name('backend.staff.add')->middleware('permission:staff.add');
-            Route::any('/edit/{id}', 'Backend\StaffController@edit')->name('backend.staff.edit')->middleware('permission:staff.edit');
-            Route::any('/delete/{id}', 'Backend\StaffController@delete')->name('backend.staff.delete')->middleware('permission:staff.delete');
-        });
+    // quản lý email nhận tin thông báo
+    Route::any('/subscribers', [SubscribersController::class, 'index'])->name('backend.subscribers.index');
 
-        Route::group(['prefix' => 'products'], function () {
-            Route::any('', 'Backend\Product\ProductsController@index')->name('backend.products.index')->middleware('permission:products.index');
-            Route::any('/inventory', 'Backend\Product\ProductsController@inventory')->name('backend.products.inventory');
-            Route::any('/add/{type_id}', 'Backend\Product\ProductsController@add')->name('backend.products.add')->middleware('permission:products.add');
-            Route::any('/edit/{id}-{type_id}', 'Backend\Product\ProductsController@edit')->name('backend.products.edit')->middleware('permission:products.edit');
-            Route::post('/ajax/delete', 'Backend\Product\ProductsController@ajaxdelete')->name('backend.products.ajax.delete');
-
-            Route::post('/ajax/approved', 'Backend\Product\ProductsController@approved')->name('backend.products.ajax.approved');
-            Route::post('/ajax/un_approved', 'Backend\Product\ProductsController@un_approved')->name('backend.products.ajax.un_approved');
-
-
-            Route::group(['prefix' => 'type'], function () {
-                Route::any('/', 'Backend\Product\TypeController@index')->name('backend.products.type.index')->middleware('permission:products.type.index');
-                Route::any('/add', 'Backend\Product\TypeController@add')->name('backend.products.type.add')->middleware('permission:products.type.add');
-                Route::any('/edit/{id}', 'Backend\Product\TypeController@edit')->name('backend.products.type.edit')->middleware('permission:products.type.edit');
-                Route::post('/delete', 'Backend\Product\TypeController@delete')->name('backend.products.type.del')->middleware('permission:products.type.del');
-                Route::any('/sort', 'Backend\Product\TypeController@sort')->name('backend.products.type.sort')->middleware('permission:products.type.index');
-            });
-
-            Route::group(['prefix' => 'attributes'], function () {
-                Route::any('/', 'Backend\Product\Attributes\IndexController@index')->name('backend.products.attributes.index');
-                Route::any('/add', 'Backend\Product\Attributes\IndexController@add')->name('backend.products.attributes.add');
-                Route::any('/edit/{id}', 'Backend\Product\Attributes\IndexController@edit')->name('backend.products.attributes.edit');
-                Route::post('/delete', 'Backend\Product\Attributes\IndexController@delete')->name('backend.products.attributes.del');
-                Route::any('/sort', 'Backend\Product\Attributes\IndexController@sort')->name('backend.products.attributes.sort');
-
-                Route::group(['prefix' => 'values'], function () {
-                    Route::any('{attribute_id}/', 'Backend\Product\Attributes\ValuesController@index')->name('backend.products.attributes.values.index');
-                    Route::any('/{attribute_id}/add', 'Backend\Product\Attributes\ValuesController@add')->name('backend.products.attributes.values.add');
-                    Route::any('/{attribute_id}/edit/{value_id}', 'Backend\Product\Attributes\ValuesController@edit')->name('backend.products.attributes.values.edit');
-                    Route::post('/{attribute_id}/delete', 'Backend\Product\Attributes\ValuesController@delete')->name('backend.products.attributes.values.del');
-                    Route::post('/{attribute_id}/sort', 'Backend\Product\Attributes\ValuesController@sort')->name('backend.products.attributes.values.sort');
-                });
-            });
-        });
-
-        // Route::any('/notification', 'Backend\NotificationController@index')->name('backend.notification.index')->middleware('permission:notification.index');
-        Route::any('/notification/add', 'Backend\NotificationController@add')->name('backend.notification.add')->middleware('permission:notification.add');
-
-        Route::group(['prefix' => 'location'], function () {
-            Route::any('/province', 'Backend\Location\ProvinceController@index')->name('backend.location.province.index');
-            Route::any('/province/add', 'Backend\Location\ProvinceController@add')->name('backend.location.province.add');
-            Route::any('/province/edit/{id}', 'Backend\Location\ProvinceController@edit')->name('backend.location.province.edit');
-            Route::any('/province/del/{id}', 'Backend\Location\ProvinceController@delete')->name('backend.location.province.del');
-
-            Route::any('/district', 'Backend\Location\DistrictController@index')->name('backend.location.district.index');
-            Route::any('/district/add', 'Backend\Location\DistrictController@add')->name('backend.location.district.add');
-            Route::any('/district/edit/{id}', 'Backend\Location\DistrictController@edit')->name('backend.location.district.edit');
-            Route::any('/district/del/{id}', 'Backend\Location\DistrictController@delete')->name('backend.location.district.del');
-
-            Route::any('/ward', 'Backend\Location\WardController@index')->name('backend.location.ward.index');
-            Route::any('/ward/add', 'Backend\Location\WardController@add')->name('backend.location.ward.add');
-            Route::any('/ward/edit/{id}', 'Backend\Location\WardController@edit')->name('backend.location.ward.edit');
-            Route::any('/ward/del/{id}', 'Backend\Location\WardController@delete')->name('backend.location.ward.del');
-        });
-
-        //ajax
-        Route::group(['prefix' => 'ajax'], function () {
-            Route::any('/ajax-shipping-fee', 'Backend\AjaxController@shippingFee')->name('backend.ajax.shipping-fee');
-
-            Route::any('/search-user', 'Backend\AjaxController@searchUser')->name('backend.ajax.searchUser');
-            Route::post('/add-street', 'Backend\AjaxController@addStreet')->name('backend.ajax.addStreet');
-            Route::post('/upload-image', 'Backend\AjaxController@uploadImage')->name('backend.ajax.uploadImage');
-            Route::post('/remove-image', 'Backend\AjaxController@removeImage')->name('backend.ajax.removeImage');
-
-            Route::post('/product/variation/delete', 'Backend\Product\ProductsController@deleteVariation')->name('backend.products.variation.delete');
-            Route::post('/product/variation/add', 'Backend\Product\ProductsController@createVariation')->name('backend.products.variation.add');
-
-            Route::get('/variation-image', 'Backend\Product\ProductsController@getVariationImage')->name('backend.products.variation.image');
-            Route::post('/variation-image', 'Backend\Product\ProductsController@uploadVariationImage')->name('backend.products.variation.image.upload');
-            Route::post('/variation-image/delete', 'Backend\Product\ProductsController@deleteVariationImage')->name('backend.products.variation.image.delete');
-            Route::post('/variation-image/sort', 'Backend\Product\ProductsController@sortVariationImage')->name('backend.products.variation.image.sort');
-
-            Route::get('/variation/value', 'Backend\AjaxController@getVariationValue')->name('backend.ajax.variation.value');
-            Route::post('/variation/create', 'Backend\AjaxController@createVariation')->name('backend.ajax.variation.create');
-            Route::post('/add-salary', 'Backend\AjaxController@addSalary')->name('backend.ajax.addSalary');
-            Route::post('/ajax-salary', 'Backend\AjaxController@ajaxSalary')->name('backend.ajax.ajaxSalary');
-            Route::post('/ajax-salary/agree', 'Backend\AjaxController@ajaxSalaryAgree')->name('backend.ajax.ajaxSalaryAgree');
-            Route::post('/payed-salary', 'Backend\AjaxController@paySalary')->name('backend.ajax.paySalary');
-
-            Route::any('/add/productOrder', 'Backend\OrdersController@AddProductOrder')->name('backend.orders.addproduct.order');
-            Route::any('/editproduct', 'Backend\OrdersController@editProduct')->name('backend.orders.editproduct.order');
-            Route::any('/deleteproduct', 'Backend\OrdersController@deleteproduct')->name('backend.orders.deleteproduct.order');
-            Route::any('/update', 'Backend\OrdersController@update')->name('backend.orders.update');
-            Route::any('/update1', 'Backend\OrdersController@update1')->name('backend.orders.update1');
-            Route::any('/changeAddress', 'Backend\AjaxController@changeAddress')->name('backend.ajax.changeAddress');
-            Route::any('/list/cancel', 'Backend\OrdersController@cancellist')->name('backend.orders.cancel.list');
-            Route::any('/ajaxData', 'Backend\OrdersController@ajaxData')->name('backend.orders.ajaxData');
-            Route::any('/update/order/{id}', 'Backend\OrdersController@updateOrder')->name('backend.orders.updateOrder');
-            Route::any('/update/cod_amount/{id}', 'Backend\OrdersController@UpdateCODamount')->name('backend.orders.update.cod.amount');
-            Route::any('/get_otp', 'Backend\AjaxController@GetOTP')->name('backend.get_otp');
-            Route::any('/check_otp', 'Backend\AjaxController@check_otp')->name('backend.ajax.check_otp');
-        });
-
-        Route::group(['prefix' => 'brand'], function () {
-            Route::get('/', 'Backend\Branch\BranchController@index')->name('backend.brands.index');
-            Route::get('/create', 'Backend\Branch\BranchController@create')->name('backend.brands.create');
-            Route::post('/store', 'Backend\Branch\BranchController@store')->name('backend.brands.store');
-            Route::post('/ajax-wareHouse', 'Backend\Branch\BranchController@ajaxWareHouse')->name('backend.brands.ajaxWareHouse');
-            Route::get('/edit/{id}', 'Backend\Branch\BranchController@edit')->name('backend.brands.edit');
-            Route::post('/update/{id}', 'Backend\Branch\BranchController@update')->name('backend.brands.update');
-            Route::post('/delete', 'Backend\Branch\BranchController@destroy')->name('backend.brands.delete');
-
-
-            //route test thoi nha
-            Route::get('/selectpickertest', 'Backend\Branch\BranchController@selectpicker')->name('backend.brands.selectpicker');
-            Route::get('ajax/orders-by-user', 'Backend\Branch\BranchController@getByUser')->name('backend.ajax.orders_by_user');
-        });
-
-        Route::group(['prefix' => 'assignshopid'], function () {
-            Route::get('/', 'Backend\Branch\BranchController@assignshopid')->name('backend.brands.assignshopid');
-            Route::get('/edit/{id}', 'Backend\Branch\BranchController@editassignshopid')->name('backend.brands.editassignshopid');
-            Route::post('/update/{id}', 'Backend\Branch\BranchController@updateassignshopid')->name('backend.brands.updateassignshopid');
-        });
-
-        Route::group(['prefix' => 'warehouses'], function () {
-            Route::post('/ajaxResult', 'Backend\Branch\WarehouseController@ajaxResult')->name('backend.warehouses.ajaxResult');
-
-            Route::any('/', 'Backend\Branch\WarehouseController@index')->name('backend.warehouses.index')->middleware('permission:warehouses.index');
-            Route::get('/create', 'Backend\Branch\WarehouseController@create')->name('backend.warehouses.create')->middleware('permission:warehouses.index');
-            Route::post('/store', 'Backend\Branch\WarehouseController@store')->name('backend.warehouses.store')->middleware('permission:warehouses.index');
-            Route::get('/edit/{id}', 'Backend\Branch\WarehouseController@edit')->name('backend.warehouses.edit')->middleware('permission:warehouses.index');
-            Route::post('/update/{id}', 'Backend\Branch\WarehouseController@update')->name('backend.warehouses.update')->middleware('permission:warehouses.index');
-            Route::post('/delete', 'Backend\Branch\WarehouseController@destroy')->name('backend.warehouses.delete')->middleware('permission:warehouses.index');
-            Route::post('/ajaxInsertProduct', 'Backend\Branch\WarehouseController@ajaxInsertProduct')->name('backend.warehouses.ajaxInsertProduct')->middleware('permission:warehouses.index');
-            Route::post('/ajaxDetail', 'Backend\Branch\WarehouseController@ajaxDetail')->name('backend.warehouses.ajaxDetail')->middleware('permission:warehouses.index');
-            Route::post('/district-ajax', 'Backend\Branch\WarehouseController@ajaxLoadDistrict')->name('backend.warehouses.ajaxLoadDistrict')->middleware('permission:warehouses.index');
-            Route::post('/ward-ajax', 'Backend\Branch\WarehouseController@ajaxLoadWard')->name('backend.warehouses.ajaxLoadWard')->middleware('permission:warehouses.index');
-            Route::post('/searchProduct', 'Backend\Branch\WarehouseController@searchProduct')->name('backend.warehouses.searchProduct')->middleware('permission:warehouses.index');
-            Route::post('/getDanhMuc', 'Backend\Branch\WarehouseController@getDanhMuc')->name('backend.warehouses.getDanhMuc')->middleware('permission:warehouses.index');
-            Route::post('/checkCoupon', 'Backend\Branch\WarehouseController@checkCoupon')->name('backend.warehouses.checkCoupon')->middleware('permission:warehouses.index');
-
-
-            Route::any('/detail/{id}', 'Backend\Branch\WarehouseController@detail')->name('backend.warehouses.detail');
-        });
-
-
-        Route::group(['prefix' => 'post'], function () {
-            Route::any('/', 'Backend\PostsController@index')->name('backend.posts.index')->middleware('permission:posts.index');
-            Route::any('/add', 'Backend\PostsController@add')->name('backend.posts.add')->middleware('permission:posts.add');
-            Route::any('/edit/{id}', 'Backend\PostsController@edit')->name('backend.posts.edit')->middleware('permission:posts.edit');
-            Route::any('/delete/{id}', 'Backend\PostsController@delete')->name('backend.posts.del')->middleware('permission:posts.del');
-
-            Route::group(['prefix' => 'category'], function () {
-                Route::any('/', 'Backend\PostsCategoryController@index')->name('backend.posts.category.index')->middleware('permission:posts.category.index');
-                Route::any('/sort', 'Backend\PostsCategoryController@sort')->name('backend.posts.category.sort')->middleware('permission:posts.category.index');
-                Route::any('/add', 'Backend\PostsCategoryController@add')->name('backend.posts.category.add')->middleware('permission:posts.category.add');
-                Route::any('/edit/{id}', 'Backend\PostsCategoryController@edit')->name('backend.posts.category.edit')->middleware('permission:posts.category.edit');
-                Route::any('/delete', 'Backend\PostsCategoryController@delete')->name('backend.posts.category.del')->middleware('permission:posts.category.del');
-            });
-        });
-
-        Route::group(['prefix' => 'policy'], function () {
-            Route::any('/', 'Backend\PolicyController@index')->name('backend.policy.index')->middleware('permission:policy.index');
-            Route::any('/add', 'Backend\PolicyController@add')->name('backend.policy.add')->middleware('permission:policy.add');
-            Route::any('/edit/{id}', 'Backend\PolicyController@edit')->name('backend.policy.edit')->middleware('permission:policy.edit');
-            Route::any('/delete/{id}', 'Backend\PolicyController@delete')->name('backend.policy.del')->middleware('permission:policy.del');
-
-            Route::group(['prefix' => 'category'], function () {
-                Route::any('/', 'Backend\PolicyCategoryController@index')->name('backend.policy.category.index')->middleware('permission:policy.category.index');
-                Route::any('/sort', 'Backend\PolicyCategoryController@sort')->name('backend.policy.category.sort')->middleware('permission:policy.category.index');
-                Route::any('/add', 'Backend\PolicyCategoryController@add')->name('backend.policy.category.add')->middleware('permission:policy.category.add');
-                Route::any('/edit/{id}', 'Backend\PolicyCategoryController@edit')->name('backend.policy.category.edit')->middleware('permission:policy.category.edit');
-                Route::any('/delete', 'Backend\PolicyCategoryController@delete')->name('backend.policy.category.del')->middleware('permission:policy.category.del');
-            });
-        });
-
-        Route::group(['prefix' => 'orders'], function () {
-            Route::get('/', 'Backend\OrdersController@index')->name('backend.orders.index')->middleware('permission:orders.index');
-            Route::get('/search', 'Backend\OrdersController@search')->name('backend.orders.search');
-
-            Route::any('/search/mobie', 'Backend\OrdersController@index1')->name('backend.orders.index1');
-
-            Route::any('/add', 'Backend\OrdersController@add')->name('backend.orders.add');
-            Route::any('/create/{id}', 'Backend\OrdersController@create')->name('backend.orders.create')->middleware('permission:orders.index');
-            Route::any('/edit/{id}', 'Backend\OrdersController@edit')->name('backend.orders.edit');
-
-            Route::any('/importExcel', 'Backend\OrdersController@createExcel')->name('backend.orders.create.excel')->middleware('permission:orders.excel');
-            Route::any('/preview', 'Backend\OrdersController@ordersPreview')->name('backend.orders.preview');
-            Route::any('/checkout/{id}', 'Backend\OrdersController@orderscheckout')->name('backend.orders.orderscheckout');
-
-            Route::any('/changeAddress/{id}', 'Backend\OrdersController@changeAddress')->name('backend.orders.changeAddress');
-            Route::any('/returnAddress/{id}', 'Backend\OrdersController@returnAddress')->name('backend.orders.returnAddress');
-
-            //trả hàng
-            Route::any('/returnOrder/{id}', 'Backend\OrdersController@returnOrder')->name('backend.orders.return');
-            //giao lai
-            Route::any('/storingOrder/{id}', 'Backend\OrdersController@storingOrder')->name('backend.orders.storing');
-            // xuất excel
-            Route::any('/excel', 'Backend\OrdersController@ExportExcel')->name('backend.orders.excel');
-
-            Route::any('/changeAddress2/{phone}', 'Backend\OrdersController@getPhone')->name('backend.orders.phone');
-            Route::any('/returnAddress2/{rphone}', 'Backend\OrdersController@getRPhone')->name('backend.orders.rphone');
-
-
-            Route::any('/delete/{id}', 'Backend\OrdersController@delete')->name('backend.orders.delete');
-            Route::any('/cancel/{id}', 'Backend\OrdersController@cancel')->name('backend.orders.cancel');
-            Route::any('/order/editorder', 'Backend\OrdersController@editorder')->name('backend.orders.edit.order');
-            Route::any('/history', 'Backend\OrdersController@history')->name('backend.orders.history');
-            Route::any('/export', 'Backend\OrdersController@export')->name('backend.orders.export');
-            Route::any('/download/file/{id}', 'Backend\OrdersController@downloadfile')->name('backend.orders.downloadfile');
-
-            // lên đơn băng excel
-        });
-        Route::group(['prefix' => 'shop'], function () {
-            Route::any('/{id}', 'Backend\ShopController@index')->name('backend.shop.index');
-            Route::any('/shopid', 'Backend\ShopController@indexshopid')->name('backend.shop.shopid');
-        });
-
-        Route::group(['prefix' => 'cod'], function () {
-            Route::any('/', 'Backend\ShopController@cod')->name('backend.shop.cod')->middleware('permission:backend.cod');
-        });
-        Route::group(['prefix' => 'ticket'], function () {
-            Route::any('/', 'Backend\ShopController@ticket')->name('backend.shop.ticket')->middleware('permission:backend.report');
-            Route::any('/create', 'Backend\ShopController@ticketcreate')->name('backend.shop.ticket.create');
-        });
-
-
-        Route::group(['prefix' => 'menu'], function () {
-            Route::group(['prefix' => 'products'], function () {
-                Route::any('/', 'Backend\MenuController@index')->name('backend.menu.index');
-                Route::any('/sort', 'Backend\MenuController@sort')->name('backend.menu.sort');
-                Route::any('/add', 'Backend\MenuController@add')->name('backend.menu.add');
-                Route::any('/edit/{id}', 'Backend\MenuController@edit')->name('backend.menu.edit');
-                Route::any('/delete', 'Backend\MenuController@delete')->name('backend.menu.del');
-            });
-
-            Route::group(['prefix' => 'news'], function () {
-                Route::any('/', 'Backend\MenuNewsController@index')->name('backend.menu.news.index');
-                Route::any('/sort', 'Backend\MenuNewsController@sort')->name('backend.menu.news.sort');
-                Route::any('/add', 'Backend\MenuNewsController@add')->name('backend.menu.news.add');
-                Route::any('/edit/{id}', 'Backend\MenuNewsController@edit')->name('backend.menu.news.edit');
-                Route::any('/delete', 'Backend\MenuNewsController@delete')->name('backend.menu.news.del');
-            });
-        });
-
-        Route::group(['prefix' => 'setting'], function () {
-            Route::any('/', 'Backend\SettingController@index')->name('backend.setting.index');
-        });
-
-        Route::group(['prefix' => 'banner'], function () {
-            Route::any('/', 'Backend\BannerController@index')->name('backend.banner.index');
-            Route::any('/add', 'Backend\BannerController@add')->name('backend.banner.add');
-            Route::any('/edit/{id}', 'Backend\BannerController@edit')->name('backend.banner.edit');
-            Route::any('/delete/{id}', 'Backend\BannerController@delete')->name('backend.banner.del');
-        });
-
-        Route::any('/subscribers', 'Backend\SubscribersController@index')->name('backend.subscribers.index');
-
-        Route::group(['prefix' => 'discount'], function () {
-            Route::any('/', 'Backend\DiscountController@index')->name('backend.discount.index')->middleware('permission:discount.index');
-            Route::any('/add', 'Backend\DiscountController@add')->name('backend.discount.add')->middleware('permission:discount.add');
-            Route::any('/edit/{id}', 'Backend\DiscountController@edit')->name('backend.discount.edit')->middleware('permission:discount.edit');
-            Route::any('/delete/{id}', 'Backend\DiscountController@delete')->name('backend.discount.del')->middleware('permission:discount.del');
-        });
-
-        // báo cáo live
-        Route::group(['prefix' => 'ops-live'], function () {
-            Route::get('/', 'Backend\ReportController@index')->name('backend.ops-live.index');
-            Route::any('/list', 'Backend\ReportController@list')->name('backend.ops-live.list');
-            Route::any('/amount', 'Backend\ReportController@amount')->name('backend.ops-live.amount');
-            Route::any('/change/file', 'Backend\ReportController@ChangeFile')->name('backend.ops-live.change.file');
-        });
+    // báo cáo live admin
+    Route::group(['prefix' => 'ops-live'], function () {
+        Route::get('/', [ReportController::class, 'index'])->name('backend.ops-live.index');
     });
 });
 

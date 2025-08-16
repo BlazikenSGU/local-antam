@@ -34,7 +34,7 @@
                                     {{-- <th>Tiêu đề</th> --}}
                                     <th>Kênh</th>
                                     <th>Nội dung</th>
-                                    
+
                                     <th>Ngày gửi</th>
                                     <th>Hành động</th>
                                 </tr>
@@ -46,19 +46,18 @@
                                         {{-- <td>{{ $notification->title }}</td> --}}
                                         <td>{{ $chanels[$notification->chanel] }}</td>
                                         <td style="font-size: 10px;">{{ $notification->content }}</td>
-                                       
+
                                         </td>
                                         <td>{{ $notification->created_at }}</td>
                                         <td>
 
-                                            <a href=" {{ route('backend.notification.push', [$notification->id]) }} "
-                                                class="btn waves-effect waves-light btn-info btn-sm" data-toggle="tooltip"
-                                                data-placement="top" title="Đẩy lại thông báo">
+                                            <a href=" " class="btn waves-effect waves-light btn-info btn-sm"
+                                                data-toggle="tooltip" data-placement="top" title="Đẩy lại thông báo">
                                                 <i class="fa fa-pencil-square-o"></i> </a>
 
-                                            <a href="{{ route('backend.notification.delete', [$notification->id]) }}  "
-                                                id="delete" class="btn waves-effect waves-light btn-danger btn-sm"
-                                                data-bb="confirm" data-toggle="tooltip" data-placement="top" title="Xóa">
+                                            <a href="" id="delete"
+                                                class="btn waves-effect waves-light btn-danger btn-sm" data-bb="confirm"
+                                                data-toggle="tooltip" data-placement="top" title="Xóa">
                                                 <i class="fa fa-trash-o"></i> </a>
                                         </td>
                                     </tr>

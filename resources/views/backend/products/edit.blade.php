@@ -269,7 +269,7 @@
                                     </label>
 
                                     <div class="dropzone" id="myDropzone"
-                                         action="{{route('backend.ajax.uploadImage')}}">
+                                         action="">
                                         <div class="dz-message">
                                             <div class="col-xs-8">
                                                 <div class="message">

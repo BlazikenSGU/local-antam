@@ -112,7 +112,7 @@
                                 <div class="form-group">
                                     <label>Hình đại diện</label>
                                     <div class="dropzone" id="myDropzone"
-                                         action="{{route('backend.ajax.uploadImage')}}">
+                                         action="">
                                         <div class="dz-message">
                                             <div class="col-xs-8">
                                                 <div class="message">
@@ -140,7 +140,7 @@
                                 <div class="form-group">
                                     <label>Hình share FB</label>
                                     <div class="dropzone" id="myDropzone2"
-                                         action="{{route('backend.ajax.uploadImage')}}">
+                                         action="">
                                         <div class="dz-message">
                                             <div class="col-xs-8">
                                                 <div class="message">

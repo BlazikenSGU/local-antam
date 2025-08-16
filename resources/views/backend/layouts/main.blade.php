@@ -79,11 +79,10 @@
 
         var STATIC_URL = "{{ asset('/storage') }}";
 
-        var PRODUCT_UNAPPROVED_URL = "{{ route('backend.products.ajax.un_approved') }}";
-        var PRODUCT_APPROVED_URL = "{{ route('backend.products.ajax.approved') }}";
-        var PRODUCT_DELETE_URL = "{{ route('backend.products.ajax.delete') }}";
-
-        var USER_SEARCH_URL = "{{ route('backend.ajax.searchUser') }}";
+        var PRODUCT_UNAPPROVED_URL = "";
+        var PRODUCT_APPROVED_URL = "";
+        var PRODUCT_DELETE_URL = "";
+        var USER_SEARCH_URL = "";
     </script>
 
     @yield('script_top')
@@ -288,10 +287,10 @@
                 </li>
 
                 <li>
-                    <a href="{{ route('backend.users.index') }}" rel="nofollow" aria-label="phone"
+                    <a href="" rel="nofollow" aria-label="phone"
                         style="text-align: center; align-items: center; display: block; justify-content: center;
 
-                <?= $currentPage === route('backend.users.index') ? 'color: #f26522 !important' : '' ?>
+                <?= $currentPage === '' ? 'color: #f26522 !important' : '' ?>
 
                 ">
                         <i class="fa fa-cog" aria-hidden="true"></i>
@@ -301,7 +300,7 @@
                 <li>
                     <a href="{{ url('/admin/profile') }}" rel="nofollow" aria-label="phone"
                         style="text-align: center; align-items: center; display: block; justify-content: center;
-                 <?= $currentPage === route('backend.users.profile') ? 'color: #f26522 !important' : '' ?>
+                 <?= $currentPage === '' ? 'color: #f26522 !important' : '' ?>
 
                 ">
 
@@ -451,7 +450,7 @@
                 if (result.value === true) {
                     $.ajax({
                         type: "POST",
-                        url: '{{ route('backend.orders.cancel.list') }}',
+                        url: '',
                         dataType: 'json',
                         data: data,
                         success: function(data) {
@@ -508,7 +507,7 @@
                 if (result.value === true) {
                     $.ajax({
                         type: "POST",
-                        url: '{{ route('backend.orders.cancel.list') }}',
+                        url: '',
                         dataType: 'json',
                         data: data,
                         success: function(data) {
@@ -570,7 +569,7 @@
                 if (result.value === true) {
                     $.ajax({
                         type: "POST",
-                        url: '{{ route('backend.orders.cancel.list') }}',
+                        url: '',
                         dataType: 'json',
                         data: data,
                         success: function(data) {
@@ -662,7 +661,7 @@
                     alertElement.classList.add('hidden');
                 }, 2500);
             } else {
-                console.error("Alert element not found.");
+                //  console.error("Alert element not found.");
             }
         });
 

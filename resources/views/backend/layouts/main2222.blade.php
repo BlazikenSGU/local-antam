@@ -27,8 +27,6 @@
 
     @yield('style')
 
-
-
     @yield('script_top')
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
@@ -101,11 +99,6 @@
                         <a class="nav-link" href="{{ route('backend.notification.index') }}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-font-awesome"></i></div>
                             View Log
-                        </a>
-
-                        <a class="nav-link" href="{{ route('backend.brands.selectpicker') }}">
-                            <div class="sb-nav-link-icon"><i class="fa-solid fa-shop-lock"></i></div>
-                            Select picker
                         </a>
 
                     </div>

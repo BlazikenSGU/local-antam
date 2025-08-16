@@ -74,7 +74,7 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <label>Hình đại diện</label>
-                                        <div class="dropzone" id="myDropzone" action="{{route('backend.ajax.uploadImage')}}">
+                                        <div class="dropzone" id="myDropzone" action="">
                                             <div class="dz-message">
                                                 <div class="col-xs-8">
                                                     <div class="message">
@@ -99,7 +99,7 @@
 
                                     <div class="col-md-4">
                                         <label>Icon</label>
-                                        <div class="dropzone" id="myDropzone2" action="{{route('backend.ajax.uploadImage')}}">
+                                        <div class="dropzone" id="myDropzone2" action="">
                                             <div class="dz-message">
                                                 <div class="col-xs-8">
                                                     <div class="message">

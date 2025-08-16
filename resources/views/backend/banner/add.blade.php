@@ -91,7 +91,7 @@
                                             <sup><span class="text-danger">Kích thước chuẩn: banner chính 2048x768, thương hiệu 200x60</span></sup>
                                         </label>
                                         <div class="dropzone  col-md-12 " id="myDropzone"
-                                             action="{{route('backend.ajax.uploadImage')}}">
+                                             action="">
                                             <div class="dz-message">
                                                 <div>
                                                     <div class="message">
@@ -122,7 +122,7 @@
                                                     class="text-danger">Kích thước chuẩn: banner chính 1024x500</span></sup>
                                         </label>
                                         <div class="dropzone  col-md-12 " id="myDropzone2"
-                                             action="{{route('backend.ajax.uploadImage')}}">
+                                             action="">
                                             <div class="dz-message">
                                                 <div>
                                                     <div class="message">

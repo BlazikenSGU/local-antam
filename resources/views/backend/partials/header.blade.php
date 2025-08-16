@@ -77,7 +77,7 @@
                                         <h4>{{Auth()->guard('backend')->user()->name}}</h4>
                                         <p class="text-dark font-weight-bold">{{Auth()->guard('backend')->user()->email}}</p>
 
-                                        <a href="{{route('backend.users.profile')}}"
+                                        <a href=""
                                            class="btn btn-rounded btn-danger btn-sm">Thông tin tài khoản</a></div>
                                 </div>
                             </li>

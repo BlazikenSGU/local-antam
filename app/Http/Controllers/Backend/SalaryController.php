@@ -131,7 +131,7 @@ class SalaryController extends BaseBackendController
             $request->session()->flash('msg', ['danger', 'Có lỗi xảy ra, vui lòng thử lại!']);
         }
 
-        return redirect($this->_ref ? $this->_ref : Route('backend.salary.index'));
+        return redirect($this->_ref ? $this->_ref : '');
     }
 
 }

@@ -31,7 +31,7 @@
         <div class="col-md-7 align-self-center">
             <ol class="breadcrumb">
 
-                <li class="breadcrumb-item active">{{ Breadcrumbs::render('backend.salary.index') }}</li>
+                <li class="breadcrumb-item active"></li>
 
             </ol>
         </div>

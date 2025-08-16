@@ -111,7 +111,7 @@
             var r = confirm("Ẩn các sản đã chọn?");
             if (r == true) {
                 $.ajax({
-                    url: '{{route('backend.products.ajax.un_approved')}}',
+                    url: '',
                     type: 'post',
                     data: {product_ids: val, _token: '{{csrf_token()}}'},
                     success: function (data) {
@@ -130,7 +130,7 @@
             var r = confirm("Xóa các sản phẩm đã chọn?");
             if (r == true) {
                 $.ajax({
-                    url: '{{route('backend.products.ajax.delete')}}',
+                    url: '',
                     type: 'post',
                     data: {product_ids: val, _token: '{{csrf_token()}}'},
                     success: function (data) {
@@ -148,7 +148,7 @@
             var r = confirm("Hiển thị các sản phẩm đã chọn?");
             if (r == true) {
                 $.ajax({
-                    url: '{{route('backend.products.ajax.approved')}}',
+                    url: '',
                     type: 'post',
                     data: {product_ids: val, _token: '{{csrf_token()}}'},
                     success: function (data) {

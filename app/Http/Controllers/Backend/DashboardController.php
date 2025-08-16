@@ -40,12 +40,12 @@ class DashboardController extends BaseBackendController
 
         foreach ($d1 as $v) {
             $d2 = \App\Models\Location\District::find($v['district_id'])->toArray();
-//            echo $v['district_id'];
-//            echo ' - ';
-//            echo $v['name'];
-//            echo ' - ';
-//            echo isset($d2['name']) ? $d2['name'] : '<strong>Thiếu</strong>';
-//            echo '<br>';
+            //            echo $v['district_id'];
+            //            echo ' - ';
+            //            echo $v['name'];
+            //            echo ' - ';
+            //            echo isset($d2['name']) ? $d2['name'] : '<strong>Thiếu</strong>';
+            //            echo '<br>';
 
             $ward1 = Ward::where('district_id', $v['district_id'])->get()->toArray();
             $_ward2 = \App\Models\Location\Ward::where('district_id', $v['district_id'])->get()->toArray();
@@ -70,47 +70,20 @@ class DashboardController extends BaseBackendController
     public function index()
     {
 
-//        $p = \App\Models\Admin\Product::get_by_where_join();
-//        echo "<pre>";
-//        print_r($p->toArray());
-//        exit;
-
         $user = Auth()->guard('backend')->user();
-//        $this->_data['count_products'] = Product::where('company_id',config('constants.company_id'))->count();
-//        $this->_data['count_order'] = Orders::where('company_id',config('constants.company_id'))->count();
-//        $this->_data['count_users'] = CoreUsers::where('company_id',config('constants.company_id'))->count();
-//        $this->_data['count_posts'] = Post::where('company_id',config('constants.company_id'))->count();
-//        $this->_data['order_new'] = Orders::with('user')->where('company_id',config('constants.company_id'))->orderBy('created_at', 'DESC')->limit(4)->get();
-//        $this->_data['products_new'] = Product::with('thumbnail')->where('company_id',config('constants.company_id'))->orderBy('created_at', 'DESC')->limit(4)->get();
-//        $this->_data['users_new'] = CoreUsers::orderBy('created_at', 'DESC')->where('company_id',config('constants.company_id'))->limit(4)->get();
-//        $report_month = [];
-//
-//        for ($i = 1; $i <= date('m'); $i++) {
-//            $stat = Orders::selectRaw('sum(total_price) as total_amount_month')
-//                ->where('company_id', config('constants.company_id'))
-//                ->where('status', 4)
-//                ->whereRaw("MONTH(created_at) = {$i}")
-//                ->first();
-//
-//            $total_amount = $stat->total_amount_month;
-//
-//            $report_month[] = [
-//                'period'       => $i . '/' . date('Y'),
-//                'total_amount' => (int)$total_amount,
-//                'shipping_fee' => 0,
-//            ];
-//        }
-//        $this->_data['report_month'] = $report_month;
+
         return view('backend.index', $this->_data);
     }
 
     private function _getAddress($params)
     {
-        if (empty($params['province_id'])
+        if (
+            empty($params['province_id'])
             || empty($params['district_id'])
             || empty($params['ward_id'])
             || empty($params['street_id'])
-            || empty($params['apartment_number']))
+            || empty($params['apartment_number'])
+        )
             return null;
 
         $province = \App\Models\Location\Province::findOrFail($params['province_id']);
@@ -152,11 +125,11 @@ class DashboardController extends BaseBackendController
             $order->save();
             if ($order_status == 'COMPLETED') {
                 $notify = Notification::create([
-                    'title' => 'Trạng thái đơn hàng.' ,
-                    'content' => 'Đơn hàng '.$order->id.' đã đươc tài xế'.$supplier_name.' giao thành công. ',
+                    'title' => 'Trạng thái đơn hàng.',
+                    'content' => 'Đơn hàng ' . $order->id . ' đã đươc tài xế' . $supplier_name . ' giao thành công. ',
                     'chanel' => 2,
                     'type' => 1,
-                    'company_id' =>config('constants.company_id'),
+                    'company_id' => config('constants.company_id'),
                     'relate_id' => 0,
                     'from_user_id' => 168,
                     'to_user_id' => $order->user_id,
@@ -166,14 +139,13 @@ class DashboardController extends BaseBackendController
                 $this->dispatch((new PushNotification($notify))->onQueue('push_notification'));
                 $order->status = 4;
                 $order->save();
-            }
-            elseif ($order_status == 'CANCELLED') {
+            } elseif ($order_status == 'CANCELLED') {
                 $notify = Notification::create([
-                    'title' => 'Trạng thái đơn hàng.' ,
-                    'content' => 'Đơn hàng '.$order->id.' đã bị hủy bởi tài xế '.$supplier_name,
+                    'title' => 'Trạng thái đơn hàng.',
+                    'content' => 'Đơn hàng ' . $order->id . ' đã bị hủy bởi tài xế ' . $supplier_name,
                     'chanel' => 2,
                     'type' => 1,
-                    'company_id' =>config('constants.company_id'),
+                    'company_id' => config('constants.company_id'),
                     'relate_id' => 0,
                     'from_user_id' => 168,
                     'to_user_id' => $order->user_id,
@@ -184,11 +156,11 @@ class DashboardController extends BaseBackendController
                 // gủi thông báo cho tài khoản là chủ chi nhánh
                 $admin_branch = CoreUsers::where('branch_id', $order->branch_id)->first();
                 $notify1 = Notification::create([
-                    'title' => 'Trạng thái đơn hàng.' ,
-                    'content' => 'Đơn hàng '.$order->id.' đã bị hủy.',
+                    'title' => 'Trạng thái đơn hàng.',
+                    'content' => 'Đơn hàng ' . $order->id . ' đã bị hủy.',
                     'chanel' => 2,
                     'type' => 1,
-                    'company_id' =>config('constants.company_id'),
+                    'company_id' => config('constants.company_id'),
                     'relate_id' => 0,
                     'from_user_id' => 168,
                     'to_user_id' => $admin_branch->id,
@@ -196,15 +168,13 @@ class DashboardController extends BaseBackendController
                     'user_id_created' => 168,
                 ]);
                 $this->dispatch((new PushNotification($notify1))->onQueue('push_notification'));
-
-            }
-            elseif ($order_status == 'ACCEPTED') {
+            } elseif ($order_status == 'ACCEPTED') {
                 $notify = Notification::create([
-                    'title' => 'Trạng thái đơn hàng.' ,
-                    'content' => 'Đơn hàng '.$order->id.' đã được tại xế '.$supplier_name.' chấp nhận. ',
+                    'title' => 'Trạng thái đơn hàng.',
+                    'content' => 'Đơn hàng ' . $order->id . ' đã được tại xế ' . $supplier_name . ' chấp nhận. ',
                     'chanel' => 2,
                     'type' => 1,
-                    'company_id' =>config('constants.company_id'),
+                    'company_id' => config('constants.company_id'),
                     'relate_id' => 0,
                     'from_user_id' => 168,
                     'to_user_id' => $order->user_id,
@@ -224,5 +194,4 @@ class DashboardController extends BaseBackendController
 
         return response()->json($response);
     }
-
 }

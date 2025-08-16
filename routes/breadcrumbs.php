@@ -13,12 +13,12 @@ Breadcrumbs::for('login', function ($trail) {
 });
 Breadcrumbs::for('backend.salary.index', function ($trail) {
     $trail->parent('Dashboard');
-    $trail->push('Quản Lý dự án', route('backend.salary.index'));
+    $trail->push('Quản Lý dự án', '');
 });
 // Home > profile
 Breadcrumbs::for('Profile', function ($trail) {
     $trail->parent('Dashboard');
-    $trail->push('Thông tin tài khoản', route('backend.users.profile'));
+    $trail->push('Thông tin tài khoản', );
 });
 
 Breadcrumbs::for('backend.users.index', function ($trail) {

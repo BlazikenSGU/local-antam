@@ -194,7 +194,8 @@
 
                             <div class=" mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Tình trạng thu tiền GTB</label>
-                                <select class="form-control" name="tinhtrangthutienGTB" id="tinhtrangthutienGTB" {{ $doisoat->tinhtrangthutienGTB == 1 ? 'disabled' : '' }}>
+                                <select class="form-control" name="tinhtrangthutienGTB" id="tinhtrangthutienGTB"
+                                    {{ $doisoat->tinhtrangthutienGTB == 1 ? 'disabled' : '' }}>
                                     <option value="">--</option>
                                     <option value="1" {{ $doisoat->tinhtrangthutienGTB == 1 ? 'selected' : '' }}>TRUE
                                     </option>
@@ -285,7 +286,7 @@
             console.log(data)
             $.ajax({
                 type: "GET",
-                url: '{{ route('backend.doi_soat.ajaxData') }}',
+                url: '',
                 dataType: 'json',
                 data: data,
                 success: function(response) {

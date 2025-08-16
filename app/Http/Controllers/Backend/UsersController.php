@@ -155,7 +155,7 @@ class UsersController extends BaseBackendController
             } catch (\Exception $e) {
                 $request->session()->flash('msg', ['danger', 'Có lỗi xảy ra, vui lòng thử lại!']);
             }
-            return redirect(Route('backend.users.profile'));
+            return ;
         }
         $this->_data['title'] = 'Thông tin tài khoản';
 

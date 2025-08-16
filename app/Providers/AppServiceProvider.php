@@ -17,6 +17,11 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         Paginator::useBootstrap();
+
+        //tắt debugbar đi
+        if (app()->bound('debugbar')) {
+            app('debugbar')->disable();
+        }
     }
 
     /**

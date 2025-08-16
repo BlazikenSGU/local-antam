@@ -90,15 +90,15 @@ class AjaxController extends BaseFrontendController
         exit;
     }
 
-    public function returnResult($data = [], $msg = '')
-    {
-        return Response()->json([
-            'status'  => true,
-            'code'    => 200,
-            'data'    => $data,
-            'message' => $msg
-        ]);
-    }
+    // public function returnResult($data = [], $msg = '')
+    // {
+    //     return Response()->json([
+    //         'status'  => true,
+    //         'code'    => 200,
+    //         'data'    => $data,
+    //         'message' => $msg
+    //     ]);
+    // }
 
     public function deleteItemCart(Request $request)
     {
@@ -254,7 +254,6 @@ class AjaxController extends BaseFrontendController
         }
 
         return $this->returnResult([], 'Cám ơn bạn đã đăng ký nhận tin mới.');
-
     }
 
     public function checkDiscount(Request $request)
@@ -332,21 +331,19 @@ class AjaxController extends BaseFrontendController
         } else {
             return $this->throwError('Sản phẩm không tồn tại!', 400);
         }
-
-
     }
-//    public function subscribe(Request $request)
-//    {
-//        $validator = Validator::make($request->all(), [
-//            'email' => 'required|email|lck_subscribers,email',
-//        ]);
-//        if ($validator->fails())
-//            return $this->throwError($validator->errors()->first(), 400);
-//        Subscribe::create([
-//            'email' => $request->get('email'),
-//            'ip' => $request->ip()
-//        ]);
-//    }
+    //    public function subscribe(Request $request)
+    //    {
+    //        $validator = Validator::make($request->all(), [
+    //            'email' => 'required|email|lck_subscribers,email',
+    //        ]);
+    //        if ($validator->fails())
+    //            return $this->throwError($validator->errors()->first(), 400);
+    //        Subscribe::create([
+    //            'email' => $request->get('email'),
+    //            'ip' => $request->ip()
+    //        ]);
+    //    }
     public function deleteAddress(Request $request)
     {
         if (!Auth::guard('web')->user()->id)
@@ -367,8 +364,6 @@ class AjaxController extends BaseFrontendController
         } else {
             return $this->throwError('Địa chỉ không tồn tại!', 400);
         }
-
-
     }
 
     public function addAddress(Request $request)
@@ -412,7 +407,8 @@ class AjaxController extends BaseFrontendController
 
                 $params = array_fill_keys(array_keys($validate_rule), null);
                 $params = array_merge(
-                    $params, $request->only(array_keys($params))
+                    $params,
+                    $request->only(array_keys($params))
                 );
                 $params['user_id'] = $user->id;
                 $params['full_address'] = Address::get_full_address($params);
@@ -446,13 +442,13 @@ class AjaxController extends BaseFrontendController
             }
         }
 
-//        $this->_data['provinces'] = Province::orderBy('name', 'ASC')->get();
-//        $this->_data['districts'] = old('province_id') ? District::where('province_id', old('province_id'))->orderBy('position', 'ASC')->get() : [];
-//        $this->_data['wards'] = old('district_id') ? Ward::where('district_id', old('district_id'))->get() : [];
-//
-//        $this->_data['address'] = (object)array_fill_keys(array_keys($validate_rule), null);
+        //        $this->_data['provinces'] = Province::orderBy('name', 'ASC')->get();
+        //        $this->_data['districts'] = old('province_id') ? District::where('province_id', old('province_id'))->orderBy('position', 'ASC')->get() : [];
+        //        $this->_data['wards'] = old('district_id') ? Ward::where('district_id', old('district_id'))->get() : [];
+        //
+        //        $this->_data['address'] = (object)array_fill_keys(array_keys($validate_rule), null);
 
-//        $html = view('frontend.ajax.address.add', $this->_data)->render();
+        //        $html = view('frontend.ajax.address.add', $this->_data)->render();
 
         return redirect()->back();
     }
@@ -471,7 +467,7 @@ class AjaxController extends BaseFrontendController
         $this->_data['districts'] = District::where('province_id', $address->province_id)->orderBy('priority', 'ASC')->get();
         $this->_data['wards'] = Ward::where('district_id', $address->district_id)->orderBy('priority', 'ASC')->get();
         $this->_data['address'] = $address;
-//        return $this->returnResult($address);
+        //        return $this->returnResult($address);
         $html = view('frontend.cart.address-template', $this->_data)->render();
 
         return $this->returnResult(['html' => $html]);
@@ -497,7 +493,7 @@ class AjaxController extends BaseFrontendController
         $total_price_discount = $request->get('point') * 1000;
         $total_price_can_discount = $request->get('product_price') * 0.5;
 
-        if($total_price_discount > $total_price_can_discount){
+        if ($total_price_discount > $total_price_can_discount) {
             return $this->throwError('Số tiền giảm giá không vượt quá 50% giá trị đơn hàng!', 400);
         }
 

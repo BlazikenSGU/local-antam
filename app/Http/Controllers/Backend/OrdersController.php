@@ -505,7 +505,8 @@ class OrdersController extends BaseBackendController
 
         $AD = Address::where('user_id', $user['id'])->where('is_default', 1)->first();
         if (empty($AD)) {
-            return redirect()->route('backend.users.index')->with('error', 'Vui lòng thêm địa chỉ của hàng trước khi tạo đơn.');
+            // return redirect()->route('')->with('error', 'Vui lòng thêm địa chỉ của hàng trước khi tạo đơn.');
+            return;
         }
 
         $address = $AD->street_name . ',' . $AD->ward_name . ',' . $AD->district_name . ',' . $AD->province_name;
@@ -771,8 +772,6 @@ class OrdersController extends BaseBackendController
         $query =  Orders::join('lck_doi_soat', 'lck_doi_soat.OrderCode', '=', 'lck_orders.order_code');
         $query->whereIn('lck_orders.id', $arrays);
         $data = $query->get(['lck_doi_soat.*', 'lck_orders.*']);
-
-
 
         $fileName = 'Đơn Hàng - ' . Carbon::now()->format('d-m-Y H-i') . '.xlsx';
 
@@ -1051,8 +1050,6 @@ class OrdersController extends BaseBackendController
 
     public function orderscheckout(Request $request, $id)
     {
-
-
 
         $order = Orders::find($id);
         $order->insurance_value = $request->get('insurance_value');

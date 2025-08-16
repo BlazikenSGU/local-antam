@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Exports\ExportExcelDoiSoat;
-use App\Http\Controllers\BaseBackendController;
 use App\Imports\ImportExcelDoiSoat;
 use App\Models\Branch;
 use App\Models\CoreUsers;
@@ -23,7 +22,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
 
 
-class DoiSoatController extends BaseBackendController
+class DoiSoatController extends Controller
 {
 
     public function index(Request $request)
@@ -376,8 +375,6 @@ class DoiSoatController extends BaseBackendController
     {
 
         $user = Auth::guard('backend')->user()->id;
-
-
         $keyword = $request->get('keyword');
 
         if ($keyword) {

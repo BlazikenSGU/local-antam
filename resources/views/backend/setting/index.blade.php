@@ -138,7 +138,7 @@
         function sendFileToServer(formData, d) {
 
             $.ajax({
-                url: "{{route('backend.ajax.uploadImage')}}",
+                url: "",
                 type: "POST",
                 contentType: false,
                 processData: false,

@@ -546,7 +546,7 @@
             console.log(data)
             $.ajax({
                 type: "GET",
-                url: '{{ route('backend.doi_soat.ajaxData') }}',
+                url: '',
                 dataType: 'json',
                 data: data,
                 success: function(response) {

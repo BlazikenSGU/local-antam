@@ -39,4 +39,3 @@ if ($result->num_rows > 0) {
 }
 $stmt->close();
 $conn->close();
-?>
