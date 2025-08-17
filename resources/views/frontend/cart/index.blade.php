@@ -99,7 +99,7 @@
                                         </div>
                                         <h4 class="grand-totall-title">Tổng
                                             cộng<span>{{number_format($total_cart)}}đ</span></h4>
-                                        <a href="{{route('frontend.cart.checkout')}}">Thanh toán</a>
+                                        <a href="">Thanh toán</a>
                                     </div>
                                 </div>
 

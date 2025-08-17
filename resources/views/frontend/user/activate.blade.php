@@ -9,7 +9,7 @@
                 <div class="col-lg-12 text-center" style="min-height: 300px">
                     @if(isset($token))
                         <p class="mt-8">Vui lòng click vào nút phía dưới để kích hoạt tài khoản.</p>
-                        <a class="btn btn-danger col-md-4 col-xs-12" href="{{route('frontend.user.activate',$token)}}?confirm=1">Kích
+                        <a class="btn btn-danger col-md-4 col-xs-12" href="">Kích
                             hoạt</a>
 
                     @else

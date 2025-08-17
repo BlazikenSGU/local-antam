@@ -24,7 +24,7 @@ class ActivationService
 
 //         \Log::debug($user);
 
-        $user->activation_link = route('frontend.user.activate', $token);
+        $user->activation_link = '';
         $mailable = new UserActivationEmail($user);
         Mail::to($user->email)->send($mailable);
     }

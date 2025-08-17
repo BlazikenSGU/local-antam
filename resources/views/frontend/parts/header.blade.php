@@ -110,7 +110,7 @@
                                 <a href="{{route('frontend.user.login')}}"><i class="icon-user"></i></a>
                             </div>
                             <div class="same-style-2 header-cart">
-                                <a href="{{route('frontend.cart.index')}}">
+                                <a href="">
                                     <i class="icon-basket-loaded"></i><span class="pro-count red">{{number_format(\App\Utils\Cart::get_total_items())}}</span>
                                 </a>
                             </div>

@@ -145,7 +145,7 @@ class OrdersExport implements FromCollection, WithHeadings, WithMapping
             $order->insurance_fee ?: '0',
             $order->R2S ?: '0',
             $order->Return ?: '0',
-            $doisoat->phigiao1lan ?: '0',
+            $doisoat?->phigiao1lan ?: '',
             $order->fee_shopId ?: '0',
             $doisoat ? ceil($doisoat->tongphi) : ($order->total_fee ?: '0'),
             $order->cod_failed_amount ?: '0',

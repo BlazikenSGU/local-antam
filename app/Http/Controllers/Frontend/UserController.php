@@ -942,9 +942,7 @@ class UserController extends BaseFrontendController
     {
         $user_id = Auth::check() ? Auth::user()->id : null;
 
-
         $apiToken = GHN::getToken();
-
 
         if ($user_id != 555) {
 

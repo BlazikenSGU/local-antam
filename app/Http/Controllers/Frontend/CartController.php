@@ -39,7 +39,7 @@ class CartController extends BaseFrontendController
                 Cart::update($cart[$k]['product_id'], $cart[$k]['product_variation_id'], (int)$v);
             }
 
-            return redirect(route('frontend.cart.index'));
+            return ;
         }
 
         $cart_data = Product::get_cart_data([
@@ -283,14 +283,14 @@ class CartController extends BaseFrontendController
                 }
 
                 $this->_data['msg'] = 'Quý khách đã đặt hàng thành công';
-                $this->_data['next_url'] = route('frontend.order.tracking') . '?phone=' . $order->phone . '&order_code=' . $order->order_code;
+                $this->_data['next_url'] =  '?phone=' . $order->phone . '&order_code=' . $order->order_code;
 
                 return redirect($this->_data['next_url']);
 
             } catch (\Exception $e) {
                 \DB::rollBack();
                 \Log::error('Insert Orders: ' . $e->getMessage());
-                return redirect(route('frontend.cart.checkout'));
+                return ;
             }
         }
         $this->_data['form_init'] = (object)$form_init;

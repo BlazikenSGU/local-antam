@@ -133,7 +133,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="{{ route('backend.ops-live.change.file') }}" method="post"
+                    <form action="" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body">

@@ -23,9 +23,9 @@
                                             <input type="password" name="password" placeholder="Mật khẩu">
                                             <div class="button-box">
                                                 <div class="login-toggle-btn">
-                                                    <a href="{{route('frontend.user.forgotPassword')}}">Quên mật
+                                                    <a href="">Quên mật
                                                         khẩu&nbsp|</a>
-                                                    <a href="{{route('frontend.user.register')}}">&nbspĐăng ký </a>
+                                                    <a href="">&nbspĐăng ký </a>
                                                 </div>
                                                 <button type="submit">Đăng nhập</button>
                                             </div>

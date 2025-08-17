@@ -1,4 +1,4 @@
-@extends('backend.layouts.main2222')
+@extends('backend.layouts.admin')
 
 @section('title', 'Danh sách đơn hàng')
 

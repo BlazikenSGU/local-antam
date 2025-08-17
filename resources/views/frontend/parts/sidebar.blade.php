@@ -10,7 +10,7 @@
             <div class="shop-catigory">
                 <ul class="shop-categories list-cat">
                     <li>
-                        <a href="{{route('frontend.product.main')}}" title="Tất cả sản phẩm">
+                        <a href="" title="Tất cả sản phẩm">
                             Tất cả sản phẩm
                         </a>
                     </li>

@@ -42,7 +42,7 @@
                                                         <td>{{\App\Models\Orders::$status[$item->status]}}</td>
 
                                                         <td class="text-right">
-                                                            <a href="{{Route('frontend.order.tracking'). '?phone=' . $item->phone . '&order_code=' . $item->order_code }}"
+                                                            <a href="'?phone=' . $item->phone . '&order_code=' . $item->order_code }}"
                                                                target="_blank"
                                                                class="btn waves-effect waves-light btn-info btn-sm">
                                                                 Chi tiết </a>

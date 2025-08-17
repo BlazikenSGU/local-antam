@@ -58,7 +58,7 @@
                     <div class="col-xl-5 col-lg-3">
                         <div class="categori-search-wrap categori-search-wrap-modify-3">
                             <div class="search-wrap-3">
-                                <form action="{{route('frontend.product.main')}}" method="get">
+                                <form action="" method="get">
                                     <input placeholder="Nhập nội dung tìm kiếm sản phẩm..." type="text" name="q">
                                     <button type="submit" class="blue"><i class="lnr lnr-magnifier"></i></button>
                                 </form>
@@ -87,7 +87,7 @@
                                 <div class="info acccout">
                                     <strong style="text-transform: uppercase" class="block">Tài khoản</strong>
                                     <a class="hidden-xs" href="{{route('frontend.user.login')}}">Đăng nhập</a>&nbsp;/&nbsp;
-                                    <a class="hidden-sm " href="{{route('frontend.user.register')}}">Đăng
+                                    <a class="hidden-sm " href="">Đăng
                                         ký</a>
                                 </div>
                             @else
@@ -296,14 +296,14 @@
 
                                 @endphp
                                 <div class="same-style-2 same-style-2-white same-style-2-font-dec">
-                                    <a href="{{route('frontend.product.wishlist')}}"><i class="icon-heart"></i>
+                                    <a href=""><i class="icon-heart"></i>
                                         <span
                                             class="pro-count red">{{$count_wishlist}}</span>
                                     </a>
                                 </div>
                             @endif
                             <div class="same-style-2 same-style-2-white same-style-2-font-dec header-cart">
-                                <a href="{{route('frontend.cart.index')}}"><i class="icon-basket-loaded" style="font-size: 35px"></i>
+                                <a href=""><i class="icon-basket-loaded" style="font-size: 35px"></i>
 
                                     <span
                                         class="pro-count count-cart red">{{number_format(\App\Utils\Cart::get_total_items())}}</span>
@@ -337,14 +337,14 @@
 
                             @endphp
                             <div class="same-style-2 same-style-2-font-inc header-cart">
-                                <a href="{{route('frontend.product.wishlist')}}">
+                                <a href="">
                                     <i class="icon-heart"></i><span
                                         class="pro-count red">{{$count_wishlist}}</span>
                                 </a>
                             </div>
                         @endif
                         <div class="same-style-2 same-style-2-font-inc header-cart">
-                            <a href="{{route('frontend.cart.index')}}">
+                            <a href="">
                                 <i class="icon-basket-loaded"></i><span
                                     class="pro-count red">{{number_format(\App\Utils\Cart::get_total_items())}}</span>
                             </a>
@@ -366,7 +366,7 @@
                 <nav>
                     <hr>
                     <div class="mobile-search mobile-header-padding-border-1">
-                        <form class="search-form" action="{{route('frontend.product.main')}}">
+                        <form class="search-form" action="">
                             <input type="text" placeholder="Tìm kiếm ở đây..." name="q">
                             <button class="button-search"><i class="icon-magnifier"></i></button>
                         </form>

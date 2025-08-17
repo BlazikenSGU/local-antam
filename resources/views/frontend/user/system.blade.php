@@ -293,7 +293,7 @@
                         $.ajax({
                             dataType: "json",
                             type: 'GET',
-                            url: '{{route('frontend.products.ajaxUser')}}',
+                            url: '',
                             data: {'id': id},
                             success: function (response) {
                                 jQuery('.child_' + id).html('');

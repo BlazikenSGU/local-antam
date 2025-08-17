@@ -69,7 +69,7 @@ class DashboardController extends BaseBackendController
 
     public function index()
     {
-
+        
         $user = Auth()->guard('backend')->user();
 
         return view('backend.index', $this->_data);

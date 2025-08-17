@@ -22,7 +22,7 @@ class ResetPasswordService
         if (!$this->shouldSend($user)) return;
         $token = $this->userActivation->createActivation($user);
 
-        $user->reset_password_link = route('frontend.user.resetPassword', $token);
+        $user->reset_password_link = '';
         $mailable = new ResetPasswordEmail($user);
         Mail::to($user->email)->send($mailable);
     }

@@ -70,7 +70,7 @@ class AuthController extends BaseBackendController
 
             Session::put('login_date', Carbon::now()->format('Y-m-d'));
 
-            return redirect(Route('backend.ops-live.index'));
+            return redirect(Route('backend.dashboard'));
         }
         return view('backend.login', $data);
     }

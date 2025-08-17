@@ -81,7 +81,7 @@
                                     @else
                                         <p>Đã có tài khoản?
                                             <a style="    color: #007bff;"
-                                               href="{{route('frontend.user.login')}}?ref={{urlencode(route('frontend.cart.checkout'))}}">Đăng
+                                               href="{{route('frontend.user.login')}}?ref={{urlencode('')}}">Đăng
                                                 nhập</a></p>
                                     @endif
                                 </div>
@@ -522,7 +522,7 @@
             } else {
                 $.ajax({
                     type: 'GET',
-                    url: "{{route('frontend.ajax.getAddressById')}}",
+                    url: "",
                     data: {id: id},
                     dataType: 'json',
                     success: function (data) {
@@ -620,7 +620,7 @@
 
             $.ajax({
                 method: 'POST',
-                url: '{{route('frontend.ajax.checkDiscount')}}',
+                url: '',
                 data: {
                     product_price: product_price,
                     discount_code: discount_code,
@@ -658,7 +658,7 @@
 
             $.ajax({
                 method: 'POST',
-                url: '{{route('frontend.ajax.checkDiscountPoint')}}',
+                url: '',
                 data: {
                     point: point,
                     product_price: product_price,
