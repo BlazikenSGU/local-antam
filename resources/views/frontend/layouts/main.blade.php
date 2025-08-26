@@ -211,7 +211,7 @@
 
                         // Nếu là chuỗi JSON thì decode
                         if (!is_array($shopIds)) {
-                            $shopIds = json_decode($shopIds, true);
+                            $shopIds = json_decode($shopIds, true) ?: [];
                         }
 
                         foreach ($shopIds as $shopId) {
