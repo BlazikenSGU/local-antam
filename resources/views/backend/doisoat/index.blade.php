@@ -1,22 +1,16 @@
 @extends('backend.layouts.admin')
 
+@section('title', 'Quản lý đối soát')
+@section('page_title', 'Quản lý đối soát')
+
 @section('content')
     <style>
         /* CSS cho bảng đối soát chính */
         .table-bordered th,
         .table-bordered td {
-            width: 200px !important;
-            min-width: 200px !important;
-            max-width: 200px !important;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-        }
-
-        .table-bordered .width-250 {
-            width: 250px !important;
-            min-width: 250px !important;
-            max-width: 250px !important;
         }
 
         /* CSS cho bảng đối soát phụ */
@@ -32,8 +26,7 @@
 
         /* Đảm bảo bảng có thể cuộn ngang */
         .table-responsive {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
+            max-height: 70vh;
         }
 
         /* Đảm bảo bảng không bị co lại */
@@ -127,49 +120,57 @@
 
     <div class="container-fluid mt-4">
 
-
-
-        @if (Auth::guard('backend')->check() && Auth::guard('backend')->user()->id == 168)
             <div class="row page-titles">
                 <div class="col-md-12">
                     <div class="card card-outline-info">
                         <div class="card-body">
 
-                            <div class="">
-                                <h3 class="title_h3">Quản lý đối soát</h3>
-                            </div>
-                            <div class="">
-                                <button class="btn btn-success xuat_excel" data-bs-toggle="modal"
-                                    data-bs-target="#exportExcelModal">Xuất excel</button>
-                                <a href="{{ route('backend.doi_soat.showFormImport') }}" class="btn btn-secondary"> <i
-                                        class="mdi mdi-file-excel"></i> Import Excel</a>
-                                <a href="{{ route('backend.doi_soat.run') }}" class="btn btn-warning"> <i
-                                        class="mdi mdi-file-excel"></i> Chạy đối soát</a>
-                                <a class="btn btn-primary" href="{{ route('backend.doi_soat.index') }}"><i
-                                        class="fa-solid fa-arrow-rotate-left"></i></a>
-                            </div>
+                            <div class="header_doisoat d-flex justify-content-between align-items-center">
+                                <div>
+                                    <button class="btn rounded-pill btn-outline-primary xuat_excel" data-bs-toggle="modal"
+                                        data-bs-placement="top" data-bs-target="#exportExcelModal" title="Xuất Excel">
+                                        <i class="fa-solid fa-download"></i>
+                                    </button>
 
-                            <div class=" col-md-6 mt-2">
-                                <form action="{{ route('backend.doi_soat.search') }}" method="get">
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder="Mã đơn đối soát"
-                                            id="keyword" name="keyword"
-                                            value="{{ request('keyword') ? request('keyword') : '' }}">
-                                        <button class="btn btn-primary" type="submit" id="button-addon2">
-                                            <i class="fa-solid fa-magnifying-glass"></i>
-                                        </button>
-                                    </div>
-                                </form>
+                                    <a href="{{ route('backend.doi_soat.showFormImport') }}"
+                                        class="btn rounded-pill btn-outline-primary" data-bs-placement="top"
+                                        data-bs-toggle="tooltip" title="Nhập file"> <i class="fa-solid fa-upload"></i></a>
+
+                                    <a href="{{ route('backend.doi_soat.run') }}"
+                                        class="btn rounded-pill btn-outline-primary" data-bs-toggle="tooltip"
+                                        title="Chạy đối soát"><i class="fa-solid fa-arrows-spin"></i></a>
+
+                                    <a class="btn rounded-pill btn-outline-primary"
+                                        href="{{ route('backend.doi_soat.index') }}" data-bs-toggle="tooltip"
+                                        title="Reset data"><i class="fa-solid fa-rotate"></i></a>
+                                </div>
+
+                                <div class="d-flex align-items-center">
+                                    <form action="{{ route('backend.doi_soat.search') }}" method="get">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Mã đơn đối soát"
+                                                id="keyword" name="keyword"
+                                                value="{{ request('keyword') ? request('keyword') : '' }}">
+                                            <button class="btn btn-primary" type="submit" id="button-addon2">
+                                                <i class="fa-solid fa-magnifying-glass"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <a class="btn rounded-pill btn-outline-primary" style="margin-left: .5rem;"
+                                        href="" data-bs-toggle="tooltip" title="Bộ lọc" data-bs-placement="top"
+                                        data-bs-target="#filterModal">
+                                        <i class="fa-solid fa-filter"></i>
+                                    </a>
+                                </div>
                             </div>
 
                             <div class="table-responsive mt-3">
-
                                 <table class="table table-bordered" style=" overflow-x: auto;">
                                     <thead>
                                         <tr class="table-primary">
-                                            <th scope="col" style="width: 100px">ID</th>
+                                            <th scope="col">#</th>
                                             <th scope="col">Mã đơn hàng</th>
-                                            <th class="width-250" scope="col">Đối soát</th>
+                                            <th scope="col">Đối soát</th>
                                             <th scope="col">Mã giao 1 phần</th>
                                             <th scope="col">Mã đơn hàng riêng</th>
                                             <th scope="col">Bảng giá</th>
@@ -189,7 +190,6 @@
                                             <th scope="col">Tổng đối soát</th>
                                         </tr>
                                     </thead>
-
 
                                     <tbody>
                                         @foreach ($doisoat as $item)
@@ -255,117 +255,7 @@
                 </div>
 
             </div>
-        @else
-            <div class="row page-titles desktop">
-                <div class="col-md-12">
-                    <div class="card card-outline-info">
-                        <div class="card-body">
-
-                            <div class="table-responsive">
-                                <table id="table_id1" class="table mt-5">
-                                    <thead class="bg-secondary text-light">
-                                        <tr>
-
-                                            <th scope="col">Mã phiên chuyển tiền </th>
-                                            <th scope="col">Thời gian chuyển tiền</th>
-                                            <th scope="col">Tổng tiền COD</th>
-                                            <th scope="col">GTB - thu tiền</th>
-                                            <th scope="col">Thực nhận</th>
-                                            <th scope="col">Số ĐH tương ứng</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        @foreach ($data1 as $a1)
-                                            <tr>
-
-                                                <td>
-                                                    <a href="{{ route('backend.doi_soat.detail', $a1->id) }}">
-                                                        {{ $a1->maphienchuyentien }}
-                                                    </a>
-                                                </td>
-
-                                                <td>{{ $a1->thoigianchuyentien }}</td>
-                                                <td>
-                                                    <?php
-                                                    $doisoat = \App\Models\DoiSoat::where('IdDoiSoatUser', $a1->id)->get();
-                                                    $ArrraysOderCode = [];
-                                                    foreach ($doisoat as $key => $value) {
-                                                        $ArrraysOderCode[] = $value['OrderCode'];
-                                                    }
-
-                                                    $sumPayment_fee = \App\Models\Orders::whereIn('order_code', $ArrraysOderCode)->sum('payment_fee');
-
-                                                    ?>
-                                                    {{ \App\Utils\Common::FormatNumberVND($a1->tongtienCOD) }}
-
-                                                </td>
-                                                <td>
-                                                    {{ \App\Utils\Common::FormatNumberVND($a1->GTBThutien) }}
-
-                                                </td>
-                                                <td>
-                                                    {{ \App\Utils\Common::FormatNumberVND($a1->thucnhan) }}
-
-                                                </td>
-                                                <td>
-
-                                                    {{ $a1->soHDtuongung }}
-                                                </td>
-
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="mobile container-fluid">
-                <div class="card card-outline-info">
-                    <div class="card-body">
-
-                        <div class="table-responsive">
-                            <table id="table_id1" class="table mt-5">
-                                <thead class="bg-secondary text-light">
-                                    <tr>
-
-                                        <th scope="col">Mã phiên chuyển tiền</th>
-                                        <th scope="col">Thực nhận</th>
-                                        <th scope="col">Số ĐH tương ứng</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    @foreach ($data1 as $a1)
-                                        <tr>
-
-                                            <td>
-                                                <a href="{{ route('backend.doi_soat.detail', $a1->id) }}">
-                                                    {{ $a1->maphienchuyentien }}
-                                                </a>
-                                            </td>
-
-
-                                            <td>
-                                                {{ \App\Utils\Common::FormatNumberVND($a1->thucnhan) }}
-                                            </td>
-                                            <td>
-
-                                                {{ $a1->soHDtuongung }}
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif
-
-
+      
     </div>
 
 
@@ -557,5 +447,6 @@
                 }
             });
         });
+
     </script>
 @endsection

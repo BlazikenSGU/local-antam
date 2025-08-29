@@ -1,65 +1,133 @@
 @extends('backend.layouts.admin')
 
+@section('page_title', 'Danh sách webhook')
+@section('title', 'Danh sách webhook')
+
 @section('content')
-    <div class="row page-titles">
-        <div class="col-md-5 align-self-center">
-            <h3 class="text-themecolor">{{ $subtitle }}</h3>
-        </div>
-        <div class="col-md-7 align-self-center">
-            {{ Breadcrumbs::render('backend.notification.index') }}
-        </div>
+    <style>
+        .table-responsive {
+            max-height: 70vh;
+        }
+
+        .table thead tr th {
+            padding: 0.5rem;
+        }
+
+        /* CSS cho phân trang */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            margin: 20px 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .pagination li {
+            margin: 0 2px;
+        }
+
+        .pagination li a,
+        .pagination li span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 35px;
+            height: 35px;
+            padding: 0 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            color: #333;
+            text-decoration: none;
+            background: #fff;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .pagination li.active span {
+            background: #007bff;
+            color: #fff;
+            border-color: #007bff;
+            box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+        }
+
+        .pagination li a:hover {
+            background: #f8f9fa;
+            border-color: #007bff;
+            color: #007bff;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .pagination li.disabled span {
+            color: #999;
+            background: #f5f5f5;
+            border-color: #e0e0e0;
+            cursor: not-allowed;
+        }
+
+        .pagination .page-item:first-child .page-link,
+        .pagination .page-item:last-child .page-link {
+            border-radius: 4px;
+        }
+
+        .pagination .page-item.active .page-link {
+            z-index: 3;
+        }
+
+        .wgp-pagination {
+            margin: 30px 0;
+            padding: 0 15px;
+        }
+    </style>
+
+    <div class="container-fluid mt-4">
 
         <div class="col-md-12">
             <div class="card card-outline-info">
                 <div class="card-body">
 
-                    @if (auth()->guard('backend')->user()->can('notification.add'))
-                        <div class="row">
-                            <div class="col-md-2 pull-right">
-                                <a href="{{ Route('backend.notification.add') }}"
-                                    class="btn waves-effect waves-light btn-block btn-info">
-                                    <i class="fa fa-plus"></i>&nbsp;Push thông báo
-                                </a>
-                            </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <a class="btn rounded-pill btn-outline-primary" href="{{ route('backend.notification.index') }}"
+                                data-bs-toggle="tooltip" title="Reset data"><i class="fa-solid fa-rotate"></i>
+                            </a>
                         </div>
-                    @endif
 
-                    <br>
+                        <div class="d-flex align-items-center">
+                            <form action="" method="GET">
 
-                    <div class="table-responsive">
+                                <div class="input-group ">
+                                    <input type="text" class="form-control" placeholder="Ngày trả webhook" id="keyword"
+                                        name="keyword" value="{{ request('keyword') ? request('keyword') : '' }}">
+                                    <button class="btn btn-primary" type="submit" id="button-addon2"><i
+                                            class="fa-solid fa-magnifying-glass"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive mt-3">
                         <table class="table color-table muted-table table-striped">
                             <thead>
-                                <tr>
-                                    <th>#</th>
-                                    {{-- <th>Tiêu đề</th> --}}
-                                    <th>Kênh</th>
-                                    <th>Nội dung</th>
+                                <tr class="table-primary">
 
-                                    <th>Ngày gửi</th>
-                                    <th>Hành động</th>
+                                    <th scope="col">Kênh</th>
+                                    <th scope="col">Ngày gửi</th>
+                                    <th scope="col">Nội dung</th>
+
+
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse($notifications as $notification)
                                     <tr>
-                                        <td>{{ ++$start }}</td>
-                                        {{-- <td>{{ $notification->title }}</td> --}}
+
                                         <td>{{ $chanels[$notification->chanel] }}</td>
+                                        <td style="font-size: 10px;">{{ $notification->created_at }}</td>
                                         <td style="font-size: 10px;">{{ $notification->content }}</td>
 
-                                        </td>
-                                        <td>{{ $notification->created_at }}</td>
-                                        <td>
-
-                                            <a href=" " class="btn waves-effect waves-light btn-info btn-sm"
-                                                data-toggle="tooltip" data-placement="top" title="Đẩy lại thông báo">
-                                                <i class="fa fa-pencil-square-o"></i> </a>
-
-                                            <a href="" id="delete"
-                                                class="btn waves-effect waves-light btn-danger btn-sm" data-bb="confirm"
-                                                data-toggle="tooltip" data-placement="top" title="Xóa">
-                                                <i class="fa fa-trash-o"></i> </a>
-                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
@@ -70,8 +138,8 @@
                         </table>
                     </div>
 
-                    <div class="text-center">
-                        {{ $notifications->links() }}
+                    <div class="flex items-center justify-between flex-wrap gap10 wgp-pagination">
+                        {{ $notifications->links('pagination::bootstrap-4') }}
                     </div>
                 </div>
             </div>

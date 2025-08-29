@@ -1,4 +1,7 @@
-@extends('backend.layouts.main2222')
+@extends('backend.layouts.admin')
+
+@section('page_title', 'Sửa đơn đối soát')
+@section('title', 'Sửa đơn đối soát')
 
 @section('content')
     <style>
@@ -158,84 +161,78 @@
 
     <div class="container-fluid mt-4">
 
-        <div class="row page-titles mb-2">
-            <h3 class="title_h3">Chỉnh sửa đơn đối soát</h3>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <form class="col-md-12" action="{{ route('backend.doi_soat.update', $doisoat->id) }}" method="POST">
-                        @csrf
-                        <div class="col-md-6 p-2">
-                            <div class="col-auto mb-3">
-                                <label for="exampleInputEmail1" class="form-label">ID</label>
-                                <input type="id" class="form-control" id="exampleInputEmail1"
-                                    value="{{ $doisoat->id }}" name="id" readonly>
-                            </div>
-
-                            <div class=" mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Mã đơn hàng</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" name="ordercode"
-                                    value="{{ $doisoat->OrderCode }}" readonly>
-                            </div>
-
-                            <div class=" mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Trạng thái COD đối soát</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" name="ordercode"
-                                    value="{{ $doisoat->doisoat ?: '' }}" readonly>
-                            </div>
-
-                            <div class=" mb-3">
-                                <label for="exampleInputEmail1" class="form-label">COD</label>
-                                <input type="number" class="form-control" id="exampleInputEmail1" name="cod"
-                                    value="{{ $doisoat->CODAmount }}">
-                            </div>
-
-                            <div class=" mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Tình trạng thu tiền GTB</label>
-                                <select class="form-control" name="tinhtrangthutienGTB" id="tinhtrangthutienGTB"
-                                    {{ $doisoat->tinhtrangthutienGTB == 1 ? 'disabled' : '' }}>
-                                    <option value="">--</option>
-                                    <option value="1" {{ $doisoat->tinhtrangthutienGTB == 1 ? 'selected' : '' }}>TRUE
-                                    </option>
-                                </select>
-                            </div>
-
-                            <div class=" mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Tiền GTB - Thu tiền</label>
-                                <input type="number" class="form-control" id="exampleInputEmail1" name="cod_failed_amount"
-                                    value="{{ $doisoat->cod_failed_amount }}">
-                            </div>
-
-                            <div class=" mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Phí giao hàng</label>
-                                <input type="number" class="form-control" id="exampleInputEmail1" name="mainservice"
-                                    value="{{ $doisoat->MainService }}">
-                            </div>
-
-                            <div class=" mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Tổng phí</label>
-                                <input type="id" class="form-control" id="exampleInputEmail1" name="tongphi"
-                                    value="{{ $doisoat->tongphi }}">
-                            </div>
-
-                            <div class=" mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Tổng đối soát</label>
-                                <input type="number" class="form-control" id="exampleInputEmail1" name="tongdoisoat"
-                                    value="{{ $doisoat->tongdoisoat }}">
-                            </div>
-
-                            <button class="btn btn-primary btn_submit" type="submit">Submit</button>
-
+        <div class="col-md-12">
+            <div class="card">
+                <form class="col-md-12" action="{{ route('backend.doi_soat.update', $doisoat->id) }}" method="POST">
+                    @csrf
+                    <div class="col-md-6 p-2">
+                        <div class="col-auto mb-3">
+                            <label for="exampleInputEmail1" class="form-label">ID</label>
+                            <input type="id" class="form-control" id="exampleInputEmail1" value="{{ $doisoat->id }}"
+                                name="id" readonly>
                         </div>
 
-                        <div class="col-md-6 p-2">
+                        <div class=" mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Mã đơn hàng</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" name="ordercode"
+                                value="{{ $doisoat->OrderCode }}" readonly>
                         </div>
-                    </form>
-                </div>
 
+                        <div class=" mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Trạng thái COD đối soát</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" name="ordercode"
+                                value="{{ $doisoat->doisoat ?: '' }}" readonly>
+                        </div>
+
+                        <div class=" mb-3">
+                            <label for="exampleInputEmail1" class="form-label">COD</label>
+                            <input type="number" class="form-control" id="exampleInputEmail1" name="cod"
+                                value="{{ $doisoat->CODAmount }}">
+                        </div>
+
+                        <div class=" mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Tình trạng thu tiền GTB</label>
+                            <select class="form-control" name="tinhtrangthutienGTB" id="tinhtrangthutienGTB"
+                                {{ $doisoat->tinhtrangthutienGTB == 1 ? 'disabled' : '' }}>
+                                <option value="">--</option>
+                                <option value="1" {{ $doisoat->tinhtrangthutienGTB == 1 ? 'selected' : '' }}>TRUE
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class=" mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Tiền GTB - Thu tiền</label>
+                            <input type="number" class="form-control" id="exampleInputEmail1" name="cod_failed_amount"
+                                value="{{ $doisoat->cod_failed_amount }}">
+                        </div>
+
+                        <div class=" mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Phí giao hàng</label>
+                            <input type="number" class="form-control" id="exampleInputEmail1" name="mainservice"
+                                value="{{ $doisoat->MainService }}">
+                        </div>
+
+                        <div class=" mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Tổng phí</label>
+                            <input type="id" class="form-control" id="exampleInputEmail1" name="tongphi"
+                                value="{{ $doisoat->tongphi }}">
+                        </div>
+
+                        <div class=" mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Tổng đối soát</label>
+                            <input type="number" class="form-control" id="exampleInputEmail1" name="tongdoisoat"
+                                value="{{ $doisoat->tongdoisoat }}">
+                        </div>
+
+                        <button class="btn btn-primary btn_submit" type="submit">Submit</button>
+
+                    </div>
+
+                    <div class="col-md-6 p-2">
+                    </div>
+                </form>
             </div>
+
         </div>
 
     </div>

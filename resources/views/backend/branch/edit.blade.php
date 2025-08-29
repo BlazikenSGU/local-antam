@@ -1,6 +1,7 @@
-@extends('backend.layouts.main2222')
+@extends('backend.layouts.admin')
 
 @section('title', 'Cập nhật shopId')
+@section('page_title', 'Cập nhật shopId')
 
 @section('content')
     <style>
@@ -19,15 +20,11 @@
         }
     </style>
 
-    <div class="row page-titles">
+    <div class="container-fluid mt-4">
 
         <div class="col-md-12">
             <div class="card card-outline-info">
                 <div class="card-body">
-
-                    <div class="col-md-5 align-self-center mb-3">
-                        <h3 class="text-themecolor">Cap nhat ShopId - {{ $branch->name }}</h3>
-                    </div>
 
                     <form class="form-horizontal form-bordered" action="{{ Route('backend.brands.update', $branch->id) }}"
                         method="post">

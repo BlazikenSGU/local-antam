@@ -157,7 +157,6 @@ class DoiSoatController extends BaseBackendController
                         $thucnhan[$idUser] = $tongdoisoat;
                     }
                 }
-
             }
         }
 
@@ -211,17 +210,6 @@ class DoiSoatController extends BaseBackendController
         $data = DoiSoat::where('type', 2)->get();
         dd($data->toArray());
 
-
-
-
-
-
-
-
-
-
-
-
         $data = DoiSoat::where('type', 1)->get();
 
         $idUserCount = [];
@@ -262,7 +250,7 @@ class DoiSoatController extends BaseBackendController
             $aUser = CoreUsers::find($idUser);
             $DoiSoatUser = DoiSoatUser::create([
                 'user_id' => $idUser,
-                'maphienchuyentien' => 'COD_' . date('d-m-Y').'_'.$aUser->phone,
+                'maphienchuyentien' => 'COD_' . date('d-m-Y') . '_' . $aUser->phone,
                 'thoigianchuyentien' => date('d-m-Y'),
                 'tongtienCOD' => $tongtienCOD[$idUser],
                 'GTBThutien' => $GTBThutien[$idUser],
@@ -278,6 +266,4 @@ class DoiSoatController extends BaseBackendController
         }
         return redirect()->route('backend.doi_soat.index')->with('success', 'Chạy đối soát thành công.');
     }
-
-
 }

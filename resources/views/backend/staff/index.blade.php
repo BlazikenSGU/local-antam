@@ -1,6 +1,7 @@
 @extends('backend.layouts.admin')
 
-@section('title', 'Quản lý tài khoản')
+@section('title', 'Danh sách tài khoản')
+@section('page_title', 'Danh sách tài khoản')
 
 @section('content')
     <style>
@@ -77,6 +78,14 @@
             color: white;
             text-decoration: none;
         }
+
+        .table thead tr th {
+            padding: 0.5rem;
+        }
+
+        .table-responsive {
+            max-height: 80vh;
+        }
     </style>
 
     <div class="container-fluid mt-4">
@@ -85,72 +94,35 @@
             <div class="card card-outline-info">
                 <div class="card-body">
 
-                    <div class="row page-titles mb-3">
-                        <div class="col-md-5 align-self-center">
-                            <h3>Danh sách tài khoản</h3>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+
+                            <button class="btn rounded-pill btn-outline-primary xuat_excel" data-bs-toggle="modal"
+                                data-bs-placement="top" data-bs-target="#exportExcelModal" title="Xuất Excel">
+                                <i class="fa-solid fa-download"></i>
+                            </button>
+
+                            <a class="btn rounded-pill btn-outline-primary" href="{{ route('backend.staff.index') }}"
+                                data-bs-toggle="tooltip" title="Reset data"><i class="fa-solid fa-rotate"></i></a>
+                        </div>
+
+                        <div class="d-flex align-items-center">
+                            <form action="{{ route('backend.orders.search') }}" method="GET">
+
+                                <div class="input-group ">
+                                    <input type="text" class="form-control" placeholder="name, phone" id="keyword"
+                                        name="keyword" value="{{ request('keyword') ? request('keyword') : '' }}">
+                                    <button class="btn btn-primary" type="submit" id="button-addon2"><i
+                                            class="fa-solid fa-magnifying-glass"></i></button>
+                                </div>
+                            </form>
                         </div>
                     </div>
 
-                    {{-- <form action="" method="get" id="form-filter">
-                        <div class="form-body">
-                            <div class="row p-t-20">
-
-                                <div class="col-md-12">
-                                    @include('backend.partials.msg')
-                                </div>
-
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label class="control-label font-weight-bold" for="phone">SĐT</label>
-                                        <input type="phone" name="phone" value="{{ $filter['phone'] }}" id="phone"
-                                            class="form-control" placeholder="SĐT">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label class="control-label font-weight-bold">Trạng thái</label>
-                                        <select class="form-control custom-select" name="status">
-                                            <option value="" {!! empty($filter['status']) ? 'selected="selected"' : '' !!}>
-                                                Tất cả
-                                            </option>
-                                            <option value="{{ \App\Models\CoreUsers::STATUS_REGISTERED }}"
-                                                {!! $filter['status'] == \App\Models\CoreUsers::STATUS_REGISTERED ? 'selected="selected"' : '' !!}>
-                                                Đang hoạt động
-                                            </option>
-                                            <option value="{{ \App\Models\CoreUsers::STATUS_NEWACCOUNT }}"
-                                                {!! $filter['status'] == \App\Models\CoreUsers::STATUS_NEWACCOUNT ? 'selected="selected"' : '' !!}>
-                                                Tài khoản mới
-                                            </option>
-                                            <option value="{{ \App\Models\CoreUsers::STATUS_BANNED }}"
-                                                {!! $filter['status'] == \App\Models\CoreUsers::STATUS_BANNED ? 'selected="selected"' : '' !!}>
-                                                Đã bị cấm
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="control-label">&nbsp;</label>
-                                    <div class="btn-group" role="group" style="display: inherit">
-                                        <button type="submit" class="btn"
-                                            style="background-color: #00467F; color: #fff">
-                                            <i class="fa fa-search"></i>Tìm
-                                        </button>
-
-                                        <a title="Clear search" href="{{ Route('backend.staff.index') }}" class="btn"
-                                            style="background-color: #F26522; color: #fff">
-                                            <i class="fa fa-close"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form> --}}
-
-                    <div class="table-responsive">
-                        <table class="table color-table muted-table font-weight-bold">
+                    <div class="table-responsive mt-3">
+                        <table class="table table-bordered">
                             <thead>
-                                <tr>
+                                <tr class="table-primary ">
                                     <th>ID</th>
                                     <th>Tên</th>
                                     <th>SĐT</th>

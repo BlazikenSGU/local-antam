@@ -1,4 +1,7 @@
-@extends('backend.layouts.main2222')
+@extends('backend.layouts.admin')
+
+@section('title', 'Thêm shopId')
+@section('page_title', 'Thêm shopId')
 
 @section('content')
     <style>
@@ -17,11 +20,8 @@
         }
     </style>
 
-    <div class="row page-titles">
-        <div class="col-md-5 align-self-center">
-            <h3 class="text-themecolor"></h3>
-        </div>
-
+    <div class="container-fluid mt-4">
+        
         <div class="col-md-12">
             <div class="card card-outline-info">
                 <div class="card-body">

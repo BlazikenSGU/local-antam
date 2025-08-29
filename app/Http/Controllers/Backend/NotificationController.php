@@ -36,9 +36,9 @@ class NotificationController extends BaseBackendController
             ->whereNotNull('user_id_created')
             ->where('company_id', config('constants.company_id'));
 
-        $notification = $notification->paginate(50)->withPath($params['pagin_path']);
+        $notification = $notification->paginate(50)->withQueryString();
 
-        $start = ($notification->currentPage() - 1) * config('constants.item_perpage');
+        $start = ($notification->currentPage() - 1) * 50;
 
         $this->_data['notifications'] = $notification;
         $this->_data['start'] = $start;
